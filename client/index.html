@@ -10,7 +10,29 @@
     <body>
         <div id='app'>
             <v-app>
-                
+                <v-toolbar fixed>
+                    <v-toolbar-side-icon>
+                        <v-avatar>
+                            logo
+                        </v-avatar>
+                    </v-toolbar-side-icon>
+                    <v-toolbar-title>
+                        FLIGHT LEADS
+                    </v-toolbar-title>
+                </v-toolbar>
+               
+                <v-container>
+                    <v-btn
+                        fixed
+                        dark
+                        fab
+                        bottom
+                        right
+                        color="blue"
+                    >
+                        <v-icon style='padding-top:30%;'>add</v-icon>
+                    </v-btn>
+               </v-container>
             </v-app>
         </div>
         <script src='vue.js'></script>
