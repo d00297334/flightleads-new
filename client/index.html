@@ -16,7 +16,7 @@
                             logo
                         </v-avatar>
                     </v-toolbar-side-icon>
-                    
+
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
@@ -31,11 +31,11 @@
                         </v-toolbar-items>
                     </v-toolbar>
 
-                    
+
 
 
                </v-container>
-       
+
 
 
           <v-layout row justify-center>
@@ -48,7 +48,10 @@
                 <v-card-text>
                   <v-container grid-list-md>
                     <v-layout wrap>
-                        <v-flex xs12>
+                      <v-flex xs12>
+                        <v-text-field label="Full Name" required></v-text-field>
+                      </v-flex>
+                        <v-flex xs12 sm6>
                             <v-menu
                               ref="menu2"
                               :close-on-content-click="false"
@@ -72,28 +75,40 @@
 
                             </v-menu>
                           </v-flex>
-                      <v-flex xs12 sm6 md4>
-                        <v-text-field label="First name" required></v-text-field>
+                        <v-flex xs12 sm6>
+                          <v-menu
+                            ref="timeMenu"
+                            :close-on-content-click="false"
+                            v-model="timeMenu"
+                            :nudge-right="40"
+                            :return-value.sync="time"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            min-width="290px"
+                          >
+                            <v-text-field
+                              slot="activator"
+                              v-model="time"
+                              label="Time of Flight"
+                              prepend-icon="access_time"
+                              readonly
+                            ></v-text-field>
+                            <v-time-picker v-model="time" @input="$refs.timeMenu.save(time)"></v-time-picker>
+                          </v-menu>
                       </v-flex>
-                      <v-flex xs12 sm6 md4>
-                        <v-text-field
-                          label="Last name"
-                          required
-                        ></v-text-field>
-                      </v-flex>
+
                       <v-flex xs12>
                         <v-text-field label="Email" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
+                        <v-text-field label="Phone Number" required></v-text-field>
+                      </v-flex>
+                      <v-flex xs12>
                         <v-text-field label="Address" type="address" required></v-text-field>
                       </v-flex>
-                      <v-flex xs12 sm6>
-                        <v-select
-                          :items="['0-17', '18-29', '30-54', '54+']"
-                          label="Age"
-                          required
-                        ></v-select>
-                      </v-flex>
+
                       <v-flex xs12 sm6>
                         <v-autocomplete
                           :items="['Wedding', 'Property', 'Construction Inspection', 'Other']"
@@ -101,6 +116,9 @@
                           multiple
                           chips
                         ></v-autocomplete>
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-textarea rows=1 auto-grow label="Notes:"></v-textarea>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -122,7 +140,7 @@
     </div>
 
 
-        
+
 
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>

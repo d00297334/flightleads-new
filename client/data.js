@@ -4,6 +4,13 @@ const data = () => ({
     modal: false,
     menu2: false,
     dialog: false,
+    time: null,
+    timeMenu: false,
+    email: null,
+    phone: null,
+    address: null,
+    type: null,
+    notes: null,
 })
 
 
