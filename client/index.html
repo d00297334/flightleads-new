@@ -20,24 +20,50 @@
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
-               <v-container>
+               
+                <v-container>
                     <v-toolbar>
-                        <v-toolbar-title>SORT BY:</v-toolbar-title>
+                        <v-toolbar-title class='font-weight-medium'>SORT BY:</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-toolbar-items class="hidden-sm-and-down">
-                            <v-btn flat>Date</v-btn>
-                            <v-btn flat>Type</v-btn>
-                            <v-btn flat>Completed</v-btn>
+                        <v-toolbar-items>
+                            <v-btn class='font-weight-thin' flat>Date</v-btn>
+                            <v-btn class='font-weight-thin' flat>Type</v-btn>
+                            <v-btn class='font-weight-thin' flat>Completed</v-btn>
                         </v-toolbar-items>
                     </v-toolbar>
-
                     
-
+                    <v-layout align-start justify-space-around row> 
+                            <v-flex xs12 sm6 offset v-for='lead in leads'>
+                              <v-card >
+                                <v-card-title primary-title>
+                                  <div>
+                                    <h2 class="headline mb-0">{{ lead.name }}</h2>
+                                    <h3>{{ lead.date }} at {{ lead.time }}</h3>
+                                    <h4 class='font-weight-light'>{{ lead.address }}</h4>
+                                    <h4 class='font-weight-light'>{{ lead.type }}</h4>
+                                  </div>
+                                </v-card-title>
+                                <v-card-actions>
+                                  <v-btn flat color="blue">edit</v-btn>
+                                  <v-btn flat color="blue">delete</v-btn>
+                                  <v-btn icon @click="show = !show">
+                                        <v-icon>{{ show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                    </v-btn>
+                                </v-card-actions>
+                                <v-slide-y-transition>
+                                    <v-card-text v-show="this.show">
+                                        {{ lead.notes }}
+                                    </v-card-text>
+                                </v-slide-y-transition>
+                              </v-card>
+                            </v-flex>
+                          </v-layout>
+                        
 
                </v-container>
        
 
-
+        <v-container>
           <v-layout row justify-center>
             <v-dialog v-model="dialog" persistent max-width="500px">
               <v-btn slot="activator" color="primary" fixed bottom right fab dark><v-icon style='padding-top:30%;'>add</v-icon></v-btn>
@@ -107,14 +133,14 @@
                   <small>*indicates required field</small>
                 </v-card-text>
                 <v-card-actions>
-                  <v-spacer></v-spacer>
+                  
                   <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
                   <v-btn color="blue darken-1" flat @click="dialog = false">Save Lead</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-layout>
-
+          </v-container>
           <div style='height:200px;'></div>
 
           <v-footer>Neil was here</v-footer>
@@ -127,6 +153,5 @@
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
         <script src='main.js' type="module"></script>
-        <script src='data.js' type="module"></script>
     </body>
 </html>
