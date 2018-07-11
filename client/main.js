@@ -1,7 +1,7 @@
-// import Form from './Components/Form/form.js'
+import data from './data.js'
 
-
-const Main = new Vue({
+const app = new Vue({
     el: '#app',
+    data,
 
-})
+});

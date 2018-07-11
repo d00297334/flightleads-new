@@ -2,3 +2,7 @@
   color: blue;
   
 }
+
+[ v-cloak ] {
+  display:none;
+}
