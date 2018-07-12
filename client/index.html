@@ -2,8 +2,8 @@
 <html lang='en'>
     <head>
         <title>Flight Leads</title>
-        <link href='style.css' rel='stylesheet' type='text/css'>
         <link href='vuetify.min.css' rel='stylesheet' types='text/css'>
+        <link href='style.css' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     </head>
 
@@ -13,7 +13,7 @@
                 <v-toolbar fixed>
                     <v-toolbar-side-icon>
                         <v-avatar>
-                            logo
+                            <img width="100" height="100" src="./FLCRM_V2_White-08.png" alt="avatar">
                         </v-avatar>
                     </v-toolbar-side-icon>
 
@@ -22,13 +22,35 @@
                 <div style='height:200px;'></div>
                <v-container>
                     <v-toolbar>
-                        <v-toolbar-title>SORT BY:</v-toolbar-title>
+                        <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-toolbar-items class="hidden-sm-and-down">
-                            <v-btn flat>Date</v-btn>
-                            <v-btn flat>Type</v-btn>
-                            <v-btn flat>Completed</v-btn>
-                        </v-toolbar-items>
+                        <!-- <v-layout wrap align-right> -->
+
+                          <v-toolbar-items style="align-items: space-around" >
+                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                                <v-select
+                                  :items="dateFilters"
+                                  label="Date"
+                                ></v-select>
+                              </v-flex>
+                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                                <v-select
+                                  :items="typeFilters"
+                                  label="Type"
+                                ></v-select>
+                              </v-flex>
+                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                                <v-select
+                                  :items="statusFilters"
+                                  label="Status"
+                                ></v-select>
+                              </v-flex>
+                              <!-- <v-btn flat>Date</v-btn>
+                              <v-btn flat>Type</v-btn>
+                              <v-btn flat>Completed</v-btn> -->
+                          </v-toolbar-items>
+                      <!-- </v-layout> -->
+
                     </v-toolbar>
 
 
