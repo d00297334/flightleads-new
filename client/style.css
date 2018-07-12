@@ -1,8 +1,9 @@
-.title {
-  color: blue;
-  
-}
-
 [ v-cloak ] {
   display:none;
+}
+
+.v-toolbar .v-input {
+    margin: 10px;
+    margin-top: 18px;
+
 }
