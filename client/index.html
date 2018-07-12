@@ -11,36 +11,40 @@
         <div id='app'>
             <v-app dark v-cloak>
                 <v-toolbar fixed>
-                    <v-toolbar-side-icon>
+                    <!-- <v-toolbar-side-icon> -->
                         <v-avatar>
                             <img width="100" height="100" src="./FLCRM_V2_White-08.png" alt="avatar">
                         </v-avatar>
-                    </v-toolbar-side-icon>
+                    <!-- </v-toolbar-side-icon> -->
 
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
                <v-container>
                     <v-toolbar>
-                        <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <!-- <v-layout wrap align-right> -->
+                        <v-toolbar-title class="text-sm-left">Upcoming Flights!</v-toolbar-title>
+
+
+                        <v-layout wrap align-right>
 
                           <v-toolbar-items style="align-items: space-around" >
-                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+
+                              <v-flex style="margin:'10px'; float: right" xs12 sm2 d-flex>
+
                                 <v-select
                                   :items="dateFilters"
                                   label="Date"
                                 ></v-select>
                               </v-flex>
-                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                              <v-flex style="margin:'10px'; float: right" xs12 sm2 d-flex>
                                 <v-select
                                   :items="typeFilters"
                                   label="Type"
                                 ></v-select>
                               </v-flex>
-                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                              <v-flex style="margin:'10px'; float: right" xs12 sm2 d-flex>
                                 <v-select
+
                                   :items="statusFilters"
                                   label="Status"
                                 ></v-select>
@@ -49,13 +53,8 @@
                               <v-btn flat>Type</v-btn>
                               <v-btn flat>Completed</v-btn> -->
                           </v-toolbar-items>
-                      <!-- </v-layout> -->
-
+                      </v-layout>
                     </v-toolbar>
-
-
-
-
                </v-container>
 
 
@@ -122,10 +121,10 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-text-field label="Email" required></v-text-field>
+                        <v-text-field type="email" label="Email" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" required></v-text-field>
+                        <v-text-field type="phone" label="Phone Number" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field label="Address" type="address" required></v-text-field>
