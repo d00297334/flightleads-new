@@ -20,8 +20,11 @@
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
-               <v-container>
+                <div style='height:200px;'></div>
+               
+                <v-container>
                     <v-toolbar>
+                        
                         <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <!-- <v-layout wrap align-right> -->
@@ -52,6 +55,37 @@
                       <!-- </v-layout> -->
 
                     </v-toolbar>
+               
+                    <v-layout row wrap> 
+                            <v-flex xs12 md4 sm6 v-for='lead in leads'>
+                              <v-card style='margin:10px;'> 
+                                <v-card-title primary-title>
+                                  <div>
+                                    <h2 class="headline mb-0">{{ lead.name }}</h2>
+                                    <h3>{{ lead.date }} at {{ lead.time }}</h3>
+                                    <h4 class='font-weight-light'>{{ lead.address }}</h4>
+                                    <h4 class='font-weight-light'>{{ lead.type }}</h4>
+                                    <v-btn icon @click="lead.show = !lead.show" fab absolute bottom right>
+                                      <v-icon>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                  </v-btn>
+                                  </div>
+                                </v-card-title>
+                                
+                                <v-slide-y-transition>
+                                    <v-card-text v-show="lead.show">
+                                        {{ lead.notes }}
+                                        <v-card-actions>
+                                          <v-btn flat color="blue">edit</v-btn>
+                                          <v-btn flat color="blue">delete</v-btn>
+                                          
+                                        </v-card-actions>
+                                    </v-card-text>
+                                    
+                                </v-slide-y-transition>
+                              </v-card>
+                            </v-flex>
+                          </v-layout>
+                        
 
 
 
@@ -59,13 +93,17 @@
                </v-container>
 
 
-
+        <v-container>
           <v-layout row justify-center>
             <v-dialog v-model="dialog" persistent max-width="500px">
-              <v-btn slot="activator" color="primary" fixed bottom right fab dark><v-icon style='padding-top:30%;'>add</v-icon></v-btn>
+              
+                <v-btn slot="activator" color="primary" fixed bottom right fab dark>
+                  <v-icon style='padding-top:30%;'>add</v-icon>
+                </v-btn>
+
               <v-card>
                 <v-card-title>
-                  <span class="headline">New Lead</span>
+                  <span class="headline">New Lead</span><v-spacer></v-spacer><v-icon class='font-weight-medium' @click="dialog = false">close</v-icon>
                 </v-card-title>
                 <v-card-text>
                   <v-container grid-list-md>
@@ -147,15 +185,15 @@
                   <small>*indicates required field</small>
                 </v-card-text>
                 <v-card-actions>
-                  <v-spacer></v-spacer>
+                  
                   <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
                   <v-btn color="blue darken-1" flat @click="dialog = false">Save Lead</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-layout>
-
-          <div style='height:200px;'></div>
+          </v-container>
+          
 
           <v-footer>Neil was here</v-footer>
         </v-app>
@@ -167,6 +205,5 @@
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
         <script src='main.js' type="module"></script>
-        <script src='data.js' type="module"></script>
     </body>
 </html>
