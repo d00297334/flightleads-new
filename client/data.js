@@ -5,6 +5,14 @@ const data = () => ({
     menu2: false,
     dialog: false,
     show: false,
+    time: null,
+    timeMenu: false,
+    email: null,
+    phone: null,
+    address: null,
+    type: null,
+    notes: null,
+    
     leads: [
         {
             name: 'event 1',
@@ -46,6 +54,7 @@ const data = () => ({
     ],
 
     
+   
 })
 
 
