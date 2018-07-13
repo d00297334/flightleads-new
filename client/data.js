@@ -1,17 +1,18 @@
 const data = () => ({
-    date: null,
+    date: '',
     menu: false,
     modal: false,
     menu2: false,
     dialog: false,
     show: false,
-    time: null,
+    time: '',
     timeMenu: false,
-    email: null,
-    phone: null,
-    address: null,
-    type: null,
-    notes: null,
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    type: '',
+    notes: '',
     
     leads: [
         {
