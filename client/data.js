@@ -7,12 +7,17 @@ const data = () => ({
     show: false,
     time: null,
     timeMenu: false,
-    email: null,
-    phone: null,
-    address: null,
-    type: null,
-    notes: null,
-    
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    type: '',
+    notes: '',
+    valid: {
+      description: true,
+      amount: true
+    },
+
     leads: [
         {
             name: 'event 1',
@@ -53,8 +58,8 @@ const data = () => ({
 
     ],
 
-    
-   
+
+
     dateFilters: ['Today', 'This Week', 'This Month'],
     typeFilters: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     statusFilters: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],

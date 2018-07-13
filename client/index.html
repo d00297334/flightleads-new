@@ -10,13 +10,9 @@
     <body>
         <div id='app'>
             <v-app dark v-cloak>
-                <v-toolbar fixed>
-                    <v-toolbar-side-icon>
-                        <v-avatar>
-                            <img width="100" height="100" src="./FLCRM_V2_White-08.png" alt="avatar">
-                        </v-avatar>
-                    </v-toolbar-side-icon>
 
+                <v-toolbar fixed>
+                  <img style='padding:30px; margin:15px;' width="150" height="150" src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
@@ -26,40 +22,64 @@
                     <v-toolbar>
 
 
+
+
+
                         <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
 
                         <v-spacer></v-spacer>
+
                         <!-- <v-layout wrap align-right> -->
 
                           <v-toolbar-items style="align-items: space-around">
                               <v-spacer></v-spacer>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
+                          <v-toolbar-items>
+
+
                                 <v-select
+
+                                style='width:130px'
                                   :items="dateFilters"
                                   label="Date"
                                 ></v-select>
+
                               </v-flex>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
+
+
+
                                 <v-select
+                                style='width:130px'
+
                                   :items="typeFilters"
                                   label="Type"
                                 ></v-select>
+
                               </v-flex>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
+
+
+
                                 <v-select
+
+                                style='width:130px'
                                   :items="statusFilters"
                                   label="Status"
                                 ></v-select>
-                              </v-flex>
-                              <!-- <v-btn flat>Date</v-btn>
-                              <v-btn flat>Type</v-btn>
-                              <v-btn flat>Completed</v-btn> -->
-                          </v-toolbar-items>
-                      <!-- </v-layout> -->
 
+
+                          </v-toolbar-items>
                     </v-toolbar>
 
+
                     <v-layout row wrap>
+
+                    <v-layout row wrap>
+
                             <v-flex xs12 md4 sm6 v-for='lead in leads'>
                               <v-card style='margin:10px;'>
                                 <v-card-title primary-title>
@@ -68,9 +88,11 @@
                                     <h3>{{ lead.date }} at {{ lead.time }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
-                                    <v-btn icon @click="lead.show = !lead.show" fab absolute bottom right>
-                                      <v-icon>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-                                  </v-btn>
+
+                                      <v-flex>
+                                      <v-icon @click="lead.show = !lead.show" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                    </v-flex>
+
                                   </div>
                                 </v-card-title>
 
@@ -78,8 +100,8 @@
                                     <v-card-text v-show="lead.show">
                                         {{ lead.notes }}
                                         <v-card-actions>
-                                          <v-btn flat color="blue">edit</v-btn>
-                                          <v-btn flat color="blue">delete</v-btn>
+                                          <v-btn flat color="blue" @click="dialog=true">edit</v-btn>
+                                          <v-btn flat color="blue" @click="deleteLead(lead)">delete</v-btn>
 
                                         </v-card-actions>
                                     </v-card-text>
@@ -104,6 +126,7 @@
                   <v-icon style='padding-top:30%;'>add</v-icon>
                 </v-btn>
 
+
               <v-card>
                 <v-card-title>
                   <span class="headline">New Lead</span><v-spacer></v-spacer><v-icon class='font-weight-medium' @click="dialog = false">close</v-icon>
@@ -116,6 +139,7 @@
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
+
                               ref="menu2"
                               :close-on-content-click="false"
                               v-model="menu2"
@@ -128,6 +152,7 @@
                               min-width="290px"
                             >
                               <v-text-field
+
                                 slot="activator"
                                 v-model="date"
                                 label="Date of Flight"
@@ -140,6 +165,7 @@
                           </v-flex>
                         <v-flex xs12 sm6>
                           <v-menu
+
                             ref="timeMenu"
                             :close-on-content-click="false"
                             v-model="timeMenu"
@@ -152,6 +178,7 @@
                             min-width="290px"
                           >
                             <v-text-field
+
                               slot="activator"
                               v-model="time"
                               label="Time of Flight"
@@ -163,10 +190,10 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-text-field label="Email" required></v-text-field>
+                        <v-text-field label="Email" type='email' required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" required></v-text-field>
+                        <v-text-field label="Phone Number" type='email'l required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field label="Address" type="address" required></v-text-field>
@@ -190,7 +217,7 @@
                 <v-card-actions>
 
                   <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" flat @click="dialog = false">Save Lead</v-btn>
+                  <v-btn color="blue darken-1" flat @click="addLead">Save Lead</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
