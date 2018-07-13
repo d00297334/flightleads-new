@@ -22,24 +22,25 @@
                 <div style='height:200px;'></div>
                <v-container>
                     <v-toolbar>
-                        <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
+                        <v-toolbar-title min-width="50">Upcoming Flights!</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <!-- <v-layout wrap align-right> -->
 
-                          <v-toolbar-items style="align-items: space-around" >
-                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                          <v-toolbar-items style="align-items: space-around">
+                              <v-spacer></v-spacer>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
                                 <v-select
                                   :items="dateFilters"
                                   label="Date"
                                 ></v-select>
                               </v-flex>
-                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
                                 <v-select
                                   :items="typeFilters"
                                   label="Type"
                                 ></v-select>
                               </v-flex>
-                              <v-flex style="margin:'10px'" xs12 sm6 d-flex>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
                                 <v-select
                                   :items="statusFilters"
                                   label="Status"
