@@ -51,10 +51,13 @@ const app = new Vue({
         },
 
         // allowedHours: v => v >= 8 && v<= 21,
-
+        allowedHours(v) {
+          const unavailableTimes = this.selectedAppts[this.date]
+          return !(v %15)
+        }
 
         allowedMinutes: v => !(v % 15),
-        
+
         // allowedMinutes(v) {
         //   const unavailableTimes = this.selectedAppts[this.date]
         //   return !(v %15)
