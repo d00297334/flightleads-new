@@ -18,9 +18,9 @@ const app = new Vue({
 
             }
             this.leads.unshift(lead)
-            if (this.validApptTime(this.date, this.time)) {
-              this.selectedAppts[this.date] = []
-              this.storeAppt(this.date, this.time)
+            const isAvailable = this.isTimeAvailable()
+            if (isAvailable) {
+              this.storeAppt()
               this.formDialog = false
             } else {
               this.errorDialog = true
@@ -28,30 +28,22 @@ const app = new Vue({
 
         },
 
-        storeAppt(date, time) {
-          let oldtimes = this.selectedAppts[date]
-          // this.selectedAppts.push({date: 'time'})
-          this.selectedAppts[date] = oldtimes.push(time)
-          // console.log(this.selectedAppts)
+        storeAppt() {
+          const todaysAppointments = this.selectedAppts[this.date]
+          if (!todaysAppointments) {
+            this.selectedAppts[this.date] = [this.time]
+          } else {
+            todaysAppointments.push(this.time)
+          }
         },
 
-        validApptTime(date, time) {
-          let goodTimes = this.selectedAppts[date]
-          console.log(goodTimes)
-          if (goodTimes == undefined) {
+        isTimeAvailable() {
+          const unavailableTimes = this.selectedAppts[this.date]
+          if (!unavailableTimes) {
             return true
           }
-          for (const takenTime in goodTimes) {
-            if (time == takenTime) {
-              return false
-            }
-          }
-          return true
-        },
-
-        isTimeAvailable(time) {
-          for (const usedTime in this.selectedTimes) {
-            if (time == usedTime) {
+          for (const index in unavailableTimes) {
+            if (this.time == unavailableTimes[index]) {
               return false
             }
           }
@@ -62,6 +54,11 @@ const app = new Vue({
 
 
         allowedMinutes: v => !(v % 15),
+        
+        // allowedMinutes(v) {
+        //   const unavailableTimes = this.selectedAppts[this.date]
+        //   return !(v %15)
+        // }
 
   }
 })

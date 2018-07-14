@@ -26,19 +26,6 @@ const data = () => ({
     },
 
 
-    availableAMs: [
-      { id: 1, time: '9:00am - 10:00 am', click_state: 3, state: false },
-      { id: 2, time: '10:00am - 11:00 am', click_state: 3, state: false },
-      { id: 3, time: '11:00am - 12:00 pm', click_state: 3, state: false }
-    ],
-    availablePMs: [
-      { id: 4, time: '12:00pm - 1:00 pm', click_state: 3, state: false },
-      { id: 5, time: '1:00pm - 2:00 pm', click_state: 3, state: false },
-      { id: 6, time: '2:00am - 3:00 pm', click_state: 3, state: false },
-      { id: 7, time: '3:00pm - 4:00 pm', click_state: 3, state: false },
-      { id: 8, time: '4:00am - 5:00 pm', click_state: 3, state: false }
-    ],
-
     leads: [
         {
             name: 'event 1',
