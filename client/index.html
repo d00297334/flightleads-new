@@ -10,13 +10,9 @@
     <body>
         <div id='app'>
             <v-app dark v-cloak>
-                <v-toolbar fixed>
-                    <!-- <v-toolbar-side-icon> -->
-                        <v-avatar>
-                            <img width="100" height="100" src="./FLCRM_V2_White-08.png" alt="avatar">
-                        </v-avatar>
-                    <!-- </v-toolbar-side-icon> -->
 
+                <v-toolbar fixed>
+                  <img style='padding:30px; margin:15px;' width="150" height="150" src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
@@ -24,38 +20,35 @@
 
                 <v-container>
                     <v-toolbar>
-                        <v-toolbar-title class="text-sm-left">Upcoming Flights!</v-toolbar-title>
-
-
-                        <v-layout wrap align-right>
-
-                          <v-toolbar-items style="align-items: space-around" >
-
-                              <v-flex style="margin:'10px'; float: right" xs12 sm2 d-flex>
+                        <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                          <v-toolbar-items>
 
                                 <v-select
+
+                                style='width:130px'
                                   :items="dateFilters"
                                   label="Date"
                                 ></v-select>
-                              </v-flex>
-                              <v-flex style="margin:'10px'; float: right" xs12 sm2 d-flex>
+
+
                                 <v-select
+                                style='width:130px'
+
                                   :items="typeFilters"
                                   label="Type"
                                 ></v-select>
-                              </v-flex>
-                              <v-flex style="margin:'10px'; float: right" xs12 sm2 d-flex>
+
+
                                 <v-select
 
+                                style='width:130px'
                                   :items="statusFilters"
                                   label="Status"
                                 ></v-select>
-                              </v-flex>
-                              <!-- <v-btn flat>Date</v-btn>
-                              <v-btn flat>Type</v-btn>
-                              <v-btn flat>Completed</v-btn> -->
+
+
                           </v-toolbar-items>
-                      </v-layout>
                     </v-toolbar>
 
                     <v-layout row wrap>
@@ -67,9 +60,11 @@
                                     <h3>{{ lead.date }} at {{ lead.time }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
-                                    <v-btn icon @click="lead.show = !lead.show" fab absolute bottom right>
-                                      <v-icon>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-                                  </v-btn>
+
+                                      <v-flex>
+                                      <v-icon @click="lead.show = !lead.show" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                    </v-flex>
+
                                   </div>
                                 </v-card-title>
 
@@ -88,24 +83,20 @@
                             </v-flex>
                           </v-layout>
 
-
-
-
-
                </v-container>
-
 
         <v-container>
           <v-layout row justify-center>
-            <v-dialog v-model="dialog" persistent max-width="500px">
+            <v-dialog v-model="formDialog" persistent max-width="500px">
 
                 <v-btn slot="activator" color="primary" fixed bottom right fab dark>
                   <v-icon style='padding-top:30%;'>add</v-icon>
                 </v-btn>
 
+
               <v-card>
                 <v-card-title>
-                  <span class="headline">New Lead</span><v-spacer></v-spacer><v-icon class='font-weight-medium' @click="dialog = false">close</v-icon>
+                  <span class="headline">New Lead</span><v-spacer></v-spacer><v-icon class='font-weight-medium' @click="formDialog = false">close</v-icon>
                 </v-card-title>
                 <v-card-text>
                   <v-container grid-list-md>
@@ -115,6 +106,7 @@
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
+
                               ref="menu2"
                               :close-on-content-click="false"
                               v-model="menu2"
@@ -127,6 +119,7 @@
                               min-width="290px"
                             >
                               <v-text-field
+
                                 slot="activator"
                                 v-model="date"
                                 label="Date of Flight"
@@ -139,6 +132,7 @@
                           </v-flex>
                         <v-flex xs12 sm6>
                           <v-menu
+
                             ref="timeMenu"
                             :close-on-content-click="false"
                             v-model="timeMenu"
@@ -151,21 +145,30 @@
                             min-width="290px"
                           >
                             <v-text-field
+
                               slot="activator"
                               v-model="time"
                               label="Time of Flight"
                               prepend-icon="access_time"
                               readonly
                             ></v-text-field>
-                            <v-time-picker v-model="time" @input="$refs.timeMenu.save(time)"></v-time-picker>
+                            <v-time-picker
+                              dark
+                              min="7:30"
+                              max="21:30"
+                              v-model="time"
+                              @input="$refs.timeMenu.save(time)"
+                              :allowed-minutes="allowedMinutes"
+                            >
+                            </v-time-picker>
                           </v-menu>
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-text-field type="email" label="Email" required></v-text-field>
+                        <v-text-field label="Email" type='email' required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field type="phone" label="Phone Number" required></v-text-field>
+                        <v-text-field label="Phone Number" type='phone' required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field label="Address" type="address" required></v-text-field>
@@ -173,7 +176,7 @@
 
                       <v-flex xs12 sm6>
                         <v-autocomplete
-                          :items="['Wedding', 'Property', 'Construction Inspection', 'Other']"
+                          :items=typeFilters
                           label="Type"
                           multiple
                           chips
@@ -188,13 +191,43 @@
                 </v-card-text>
                 <v-card-actions>
 
-                  <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" flat @click="dialog = false">Save Lead</v-btn>
+                  <v-btn color="blue darken-1" flat @click="formDialog = false">Close</v-btn>
+                  <v-btn color="blue darken-1" flat @click="addLead">Save Lead</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-layout>
           </v-container>
+
+          <div class="text-xs-center">
+            <v-dialog
+              v-model="errorDialog"
+              width="500"
+            >
+              <v-card>
+                <v-card-title
+                  class="headline red lighten-2"
+                  primary-title
+                >
+                  Invalid Time Selected
+                </v-card-title>
+                <v-card-text>
+                  The time you have selected has already been taken. Please select another time.
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    flat
+                    @click="errorDialog = false"
+                  >
+                    Okay
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
 
 
           <v-footer>Neil was here</v-footer>
