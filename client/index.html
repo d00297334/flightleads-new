@@ -53,11 +53,11 @@
 
                     <v-layout row wrap> 
                             <v-flex xs12 md4 sm6 v-for='lead in leads'>
-                              <v-card style='margin:10px;'> 
+                              <v-card style='margin:10px;' > 
                                 <v-card-title primary-title>
                                   <div>
                                     <h2 class="headline mb-0">{{ lead.name }}</h2>
-                                    <h3>{{ lead.date }} at {{ lead.time }}</h3>
+                                    <h3>{{ formatDate(lead.date) }}<br>{{ lead.time }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
                                     
@@ -70,10 +70,18 @@
                                 
                                 <v-slide-y-transition>
                                     <v-card-text v-show="lead.show">
-                                        {{ lead.notes }}
+                                        
+                                        
+                                        <h3>Contact Info:</h3>
+
+                                        <h4 class='font-weight-light'>{{ lead.phone }}</h4>
+                                        <h4 class='font-weight-light'>{{ lead.email }}</h4>
+                                        <br>
+                                        <h3>Notes:</h3>
+                                        <h4 class='font-weight-light'>{{ lead.notes }}</h4>
                                         <v-card-actions>
-                                          <v-btn flat color="blue">edit</v-btn>
-                                          <v-btn flat color="blue">delete</v-btn>
+                                          <v-btn flat color="blue" @click='setEditingId(lead.id)'>edit</v-btn>
+                                          <v-btn flat color="blue" @click='deleteLead(lead)'>delete</v-btn>
                                           
                                         </v-card-actions>
                                     </v-card-text>
@@ -101,13 +109,13 @@
 
               <v-card>
                 <v-card-title>
-                  <span class="headline">New Lead</span><v-spacer></v-spacer><v-icon class='font-weight-medium' @click="dialog = false">close</v-icon>
+                  <span class="headline">{{ changeFormMenu }}</span><v-spacer></v-spacer><v-icon class='font-weight-medium' @click="close()">close</v-icon>
                 </v-card-title>
                 <v-card-text>
                   <v-container grid-list-md>
                     <v-layout wrap>
                       <v-flex xs12>
-                        <v-text-field label="Full Name" required></v-text-field>
+                        <v-text-field label="Full Name" required v-model="name"></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -162,25 +170,26 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-text-field label="Email" type='email' required></v-text-field>
+                        <v-text-field label="Email" type='email' v-model="email" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" type='email'l required></v-text-field>
+                        <v-text-field label="Phone Number" type='phone' v-model="phone" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Address" type="address" required></v-text-field>
+                        <v-text-field label="Address" type="address" v-model="address" required></v-text-field>
                       </v-flex>
 
                       <v-flex xs12 sm6>
                         <v-autocomplete
+                        v-model="type"
                           :items="['Wedding', 'Property', 'Construction Inspection', 'Other']"
                           label="Type"
-                          multiple
+                          
                           chips
                         ></v-autocomplete>
                       </v-flex>
                       <v-flex xs12>
-                        <v-textarea rows=1 auto-grow label="Notes:"></v-textarea>
+                        <v-textarea rows=1 auto-grow label="Notes:" v-model="notes"></v-textarea>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -188,8 +197,8 @@
                 </v-card-text>
                 <v-card-actions>
                   
-                  <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" flat @click="addLead">Save Lead</v-btn>
+                  <v-btn color="blue darken-1" flat @click="close()">Close</v-btn>
+                  <v-btn color="blue darken-1" flat @click="saveLead()">{{ changeFormSubmit }}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -206,6 +215,7 @@
 
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
+        <script src='moment.js'></script>
         <script src='main.js' type="module"></script>
     </body>
 </html>
