@@ -15,7 +15,7 @@ const app = new Vue({
     methods: {
         addLead() {
             const lead = {
-                show: false,
+                show: this.show,
                 name: this.name,
                 address: this.address,
                 phone: this.phone,
@@ -27,7 +27,6 @@ const app = new Vue({
                 id: Math.random(),
                 visible: true
             }
-            console.log(lead)
             this.leads.unshift(lead)
             this.clear()
         },
@@ -48,7 +47,6 @@ const app = new Vue({
             this.email = this.leads[indexOfLead].email
             this.type = this.leads[indexOfLead].type
             this.notes = this.leads[indexOfLead].notes
-            
         },
 
         updateLead(id) {
@@ -63,7 +61,6 @@ const app = new Vue({
                 email: this.email,
                 type: this.type,
                 notes: this.notes,
-                show: true
                 
             } 
             this.leads[indexOfLead] = updatedLead
@@ -73,11 +70,9 @@ const app = new Vue({
             if (this.id !== null) {
                 this.updateLead(this.id)
                 this.close()  
-                this.show = false  
             } else {
                 this.addLead()
-                this.close()
-                this.show = false
+                this.close() 
             }
         },
 
@@ -88,7 +83,6 @@ const app = new Vue({
         close() {
             this.clear()
             this.dialog = false
-            
         },
 
         clear() {
