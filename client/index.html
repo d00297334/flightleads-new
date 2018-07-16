@@ -50,13 +50,15 @@
 
 
 
-
-                                <v-select
+                               <v-select
                                 style='width:130px'
 
                                   :items="typeFilters"
                                   label="Type"
                                 ></v-select>
+
+
+
 
                               </v-flex>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
@@ -100,8 +102,9 @@
                                     <v-card-text v-show="lead.show">
                                         {{ lead.notes }}
                                         <v-card-actions>
-                                          <v-btn flat color="blue" @click="dialog=true">edit</v-btn>
+                                          <v-btn flat color="blue">edit</v-btn>
                                           <v-btn flat color="blue" @click="deleteLead(lead)">delete</v-btn>
+                                          <v-btn flat color="blue">Send Confirmation</v-btn>
 
                                         </v-card-actions>
                                     </v-card-text>
@@ -135,7 +138,7 @@
                   <v-container grid-list-md>
                     <v-layout wrap>
                       <v-flex xs12>
-                        <v-text-field label="Full Name" required></v-text-field>
+                        <v-text-field label="Full Name" :rules="nameRules" required></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -190,10 +193,10 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-text-field label="Email" type='email' required></v-text-field>
+                        <v-text-field label="Email" v-model="email" :rules="emailRules" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" type='email'l required></v-text-field>
+                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :rules="phoneRules" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field label="Address" type="address" required></v-text-field>
@@ -228,6 +231,7 @@
           <v-footer>Neil was here</v-footer>
         </v-app>
     </div>
+
 
 
 

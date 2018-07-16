@@ -4,21 +4,7 @@ const app = new Vue({
     el: '#app',
     data,
     methods: {
-      validEmail() {
-        return this.email !== '' && /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email)
-      },
 
-      isValid() {
-        this.valid = {
-          email: this.validEmail()
-      }
-      for(const key in this.valid) {
-        if (!this.valid[key]) {
-          return false
-        }
-      }
-      return true
-    },
 
         addLead() {
             const lead = {
@@ -38,8 +24,8 @@ const app = new Vue({
           },
         editLead(lead) {
           this.editedLead = lead
+          },
 
-        },
 
 
 
