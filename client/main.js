@@ -4,13 +4,12 @@ import data from './data.js'
 const app = new Vue({
     el: '#app',
     data,
-<<<<<<< HEAD
     watch: {
       date(val) {
         if (val !== '')
           this.date = this.date
-      }
-=======
+        }
+      },
     computed: {
         changeFormMenu() {
 			return this.id === null ? 'New Lead' : 'Update Lead'
@@ -18,7 +17,6 @@ const app = new Vue({
         changeFormSubmit() {
             return this.id === null ? 'Create Lead' : 'Save Lead'
         }
->>>>>>> master
     },
     methods: {
         addLead() {
@@ -36,16 +34,15 @@ const app = new Vue({
                 id: Math.random(),
                 visible: true
             }
-<<<<<<< HEAD
+
             const isAvailable = this.isTimeAvailable()
             if (isAvailable) {
               this.storeAppt()
               this.leads.unshift(lead)
-              this.formDialog = false
+              this.clear()
             } else {
               this.errorDialog = true
             }
-
         },
 
         storeAppt() {
@@ -98,10 +95,6 @@ const app = new Vue({
         allowedMinutes(v) {
           const unavailableTimes = this.selectedAppts[this.date]
           return !(v %15)
-        }
-=======
-            this.leads.unshift(lead)
-            this.clear()
         },
 
         formatDate(date) {
@@ -110,7 +103,7 @@ const app = new Vue({
 
         setEditingId(id) {
             this.id = id
-            this.dialog = true
+            this.formDialog = true
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
             this.name = this.leads[indexOfLead].name
             this.date = this.leads[indexOfLead].date
@@ -124,28 +117,28 @@ const app = new Vue({
 
         updateLead(id) {
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
-			const updatedLead = {
-				id: this.id,
-				name: this.name,
-                date: this.date,
-                time:this.time,
-                phone: this.phone,
-                address: this.address,
-                email: this.email,
-                type: this.type,
-                notes: this.notes,
-                
-            } 
+      			const updatedLead = {
+      				id: this.id,
+      				name: this.name,
+              date: this.date,
+              time:this.time,
+              phone: this.phone,
+              address: this.address,
+              email: this.email,
+              type: this.type,
+              notes: this.notes,
+
+            }
             this.leads[indexOfLead] = updatedLead
         },
-        
+
         saveLead() {
             if (this.id !== null) {
                 this.updateLead(this.id)
-                this.close()  
+                this.close()
             } else {
                 this.addLead()
-                this.close() 
+                this.close()
             }
         },
 
@@ -155,7 +148,7 @@ const app = new Vue({
 
         close() {
             this.clear()
-            this.dialog = false
+            this.formDialog = false
         },
 
         clear() {
@@ -170,7 +163,5 @@ const app = new Vue({
             this.id = null
         }
     }
->>>>>>> master
 
-  }
 })
