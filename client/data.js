@@ -6,23 +6,18 @@ const data = () => ({
     formDialog: false,
     errorDialog: false,
     show: false,
-    time: null,
-    timeMenu: false,
+    startTime: null,
+    endTime: null,
+    startTimeMenu: false,
+    endTimeMenu: false,
     name: '',
     email: '',
     phone: '',
     address: '',
     type: '',
     notes: '',
-    // allowedHoursList: ["8", "10", "11", "13", "14", "16", "18"],
-    // allowedHoursList: [8, 10, 11, 13, 14, 16, 18],
-    allowedMinutesList: [10, 30, 35],
-    hoursAndMins: [
-      {}
-    ],
-    selectedTimes: [],
     selectedAppts: {
-      '2018-07-18':["10:30"]
+      '2018-07-18':[{startTime: "10:30", endTime: "11:30"}]
     },
 
 
@@ -68,9 +63,12 @@ const data = () => ({
 
 
 
-    dateFilters: ['Today', 'This Week', 'This Month'],
-    typeFilters: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
-    statusFilters: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
+    dateItems: ['Today', 'This Week', 'This Month'],
+    typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
+    statusItems: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
+    dateFilters: ['None', 'Today', 'This Week', 'This Month'],
+    typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
+    statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
 })
 
 

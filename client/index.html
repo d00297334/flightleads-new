@@ -126,18 +126,18 @@
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
+                              <v-date-picker required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
 
                             </v-menu>
                           </v-flex>
                         <v-flex xs12 sm6>
                           <v-menu
 
-                            ref="timeMenu"
+                            ref="startTimeMenu"
                             :close-on-content-click="false"
-                            v-model="timeMenu"
+                            v-model="startTimeMenu"
                             :nudge-right="40"
-                            :return-value.sync="time"
+                            :return-value.sync="startTime"
                             lazy
                             transition="scale-transition"
                             offset-y
@@ -147,18 +147,51 @@
                             <v-text-field
 
                               slot="activator"
-                              v-model="time"
+                              v-model="startTime"
                               label="Time of Flight"
                               prepend-icon="access_time"
                               readonly
                             ></v-text-field>
                             <v-time-picker
                               dark
-                              min="7:30"
-                              max="21:30"
-                              v-model="time"
-                              @input="$refs.timeMenu.save(time)"
+                              format='24hr'
+                              v-model="startTime"
+                              @input="$refs.startTimeMenu.save(startTime)"
                               :allowed-minutes="allowedMinutes"
+                              :allowed-hours="allowedHours"
+                              required
+                            >
+                            </v-time-picker>
+                          </v-menu>
+                      </v-flex>
+                      <v-flex xs12 sm6>
+                          <v-menu
+                            ref="endTimeMenu"
+                            :close-on-content-click="false"
+                            v-model="endTimeMenu"
+                            :nudge-right="40"
+                            :return-value.sync="endTime"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            min-width="290px"
+                          >
+                            <v-text-field
+                              slot="activator"
+                              v-model="endTime"
+                              label="End Time"
+                              prepend-icon="access_time"
+                              readonly
+                            ></v-text-field>
+                            <v-time-picker
+                              dark
+                              format='24hr'
+                              v-model="endTime"
+                              @input="$refs.endTimeMenu.save(endTime)"
+                              :allowed-minutes="allowedMinutes"
+                              :allowed-hours="allowedHours"
+                              required
                             >
                             </v-time-picker>
                           </v-menu>
@@ -176,7 +209,7 @@
 
                       <v-flex xs12 sm6>
                         <v-autocomplete
-                          :items=typeFilters
+                          :items=typeItems
                           label="Type"
                           multiple
                           chips
