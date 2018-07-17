@@ -1,3 +1,4 @@
+
 const data = () => ({
     date: null,
     menu: false,
@@ -65,10 +66,14 @@ const data = () => ({
         }
 
     ],
+    id: null,
+    editingId: null,
+    visible: null,
+    dateFilters: ['Today', 'This Week', 'This Month'],
+    typeFilters: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
+    statusFilters: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
 
-    dateFilters: ['None', 'Today', 'This Week', 'This Month'],
-    typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
-    statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
+    leads: [],
 })
 
 
