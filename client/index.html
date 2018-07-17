@@ -28,35 +28,33 @@
                                 style='width:130px'
                                   :items="dateFilters"
                                   label="Date"
+                                  v-model="dateFilter"
                                 ></v-select>
-
 
                                 <v-select
                                 style='width:130px'
-
                                   :items="typeFilters"
                                   label="Type"
+                                  v-model="typeFilter"
                                 ></v-select>
 
-
                                 <v-select
-
                                 style='width:130px'
                                   :items="statusFilters"
                                   label="Status"
+                                  v-model="statusFilter"
                                 ></v-select>
-
 
                           </v-toolbar-items>
                     </v-toolbar>
 
                     <v-layout row wrap>
-                            <v-flex xs12 md4 sm6 v-for='lead in leads'>
+                            <v-flex xs12 md4 sm6 v-for='lead in filterDates()' >
                               <v-card style='margin:10px;' >
                                 <v-card-title primary-title>
                                   <div>
                                     <h2 class="headline mb-0">{{ lead.name }}</h2>
-                                    <h3>{{ formatDate(lead.date) }}<br>{{ lead.time }}</h3>
+                                    <h3>{{ formatDate(lead.date) }}<br>{{ lead.startTime }} - {{ lead.endTime }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
 
@@ -277,9 +275,9 @@
 
 
 
+        <script src='moment.min.js'></script>
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
-        <script src='moment.min.js'></script>
         <script src='main.js' type="module"></script>
     </body>
 </html>

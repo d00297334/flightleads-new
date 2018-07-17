@@ -85,8 +85,16 @@ const app = new Vue({
         allowedHours(hour) {
 
           const availableHours = [0,1,2,3,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
-          // const unavailableTimes = this.selectedAppts[this.date]
-          // for (const index in unavailableTimes) {
+          const unavailableTimes = this.selectedAppts[this.date]
+          for (const index in unavailableTimes) {
+            const { startTime, endTime } = unavailableTimes[index]
+            const apptStartTime = unavailableTimes[index].startTime
+            const apptEndTime = unavailableTimes[index].endTime
+          }
+          // for (index in availableHours) {
+          //   const available = isTimeAvailable(index)
+          //   console.log('Hour ', index, 'is ', available)
+          // }
           return availableHours.includes(hour)
         },
         //
@@ -98,7 +106,7 @@ const app = new Vue({
         },
 
         formatDate(date) {
-            return moment(date).format('ddd, MMMM-Do-YYYY')
+            return moment(date).format('dddd, MMMM-Do-YYYY')
         },
 
         setEditingId(id) {
@@ -138,7 +146,6 @@ const app = new Vue({
                 this.close()
             } else {
                 this.addLead()
-                this.close()
             }
         },
 
@@ -161,6 +168,21 @@ const app = new Vue({
             this.type = null
             this.email = ''
             this.id = null
+        },
+
+        filterDates(filter) {
+          const today = moment(new Date())
+          if (filter === 'None') {
+            return this.leads
+          }
+          if (filter === 'Today') {
+            for (lead in leads) {
+              if (lead.date == today) {
+                this.filteredDateLeads.push(lead)
+              }
+            } return this.filteredDateLeads
+          }
+
         }
     }
 
