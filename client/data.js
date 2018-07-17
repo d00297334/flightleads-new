@@ -17,6 +17,21 @@ const data = () => ({
     address: '',
     type: '',
     notes: '',
+    valid: false,
+    nameRules: [
+        v => !!v || 'Name is required'
+      ],
+    emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],
+    phoneRules: [
+      v => !!v || 'Phone number is required',
+      v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(v) || 'Phone number must be valid'
+      ],
+
+    leads: [
+    ],
     id: null,
     editingId: null,
     visible: null,

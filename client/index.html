@@ -10,6 +10,13 @@
     <body>
         <div id='app'>
             <v-app dark v-cloak>
+
+              <v-parallax
+              src="drone3.jpg"
+              height="1000"
+              jumbotron
+              >
+
                 <v-toolbar fixed>
                   <img style='padding:30px; margin:15px;' height='120px' width='120px' src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
@@ -19,9 +26,23 @@
 
                 <v-container>
                     <v-toolbar>
+
+
+
+
+
                         <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
+
                         <v-spacer></v-spacer>
+
+                        <!-- <v-layout wrap align-right> -->
+
+                          <v-toolbar-items style="align-items: space-around">
+                              <v-spacer></v-spacer>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
                           <v-toolbar-items>
+
 
                                 <v-select
 
@@ -31,12 +52,22 @@
                                 ></v-select>
 
 
-                                <v-select
+                              </v-flex>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
+
+
+                               <v-select
+
                                 style='width:130px'
 
                                   :items="typeFilters"
                                   label="Type"
                                 ></v-select>
+
+
+                              </v-flex>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
 
 
                                 <v-select
@@ -53,6 +84,7 @@
                     <v-layout row wrap>
                             <v-flex xs12 md4 sm6 v-for='lead in leads'e>
                               <v-card style='margin:10px;' >
+
                                 <v-card-title primary-title>
                                   <div>
                                     <h2 class="headline mb-0">{{ lead.name }}</h2>
@@ -80,8 +112,12 @@
                                         <h3>Notes:</h3>
                                         <h4 class='font-weight-light'>{{ lead.notes }}</h4>
                                         <v-card-actions>
+
+
+
                                           <v-btn flat color="blue" @click='setEditingId(lead.id)'>edit</v-btn>
                                           <v-btn flat color="blue" @click='deleteLead(lead)'>delete</v-btn>
+
 
                                         </v-card-actions>
                                     </v-card-text>
@@ -91,11 +127,14 @@
                             </v-flex>
                           </v-layout>
 
+
                </v-container>
 
         <v-container>
           <v-layout row justify-center>
+
             <v-dialog v-model="formDialog" persistent max-width="500px">
+
 
                 <v-btn slot="activator" color="primary" fixed bottom right fab dark>
                   <v-icon style='padding-top:30%;'>add</v-icon>
@@ -110,7 +149,8 @@
                   <v-container grid-list-md>
                     <v-layout wrap>
                       <v-flex xs12>
-                        <v-text-field label="Full Name" required v-model="name"></v-text-field>
+
+                        <v-text-field label="Full Name" :rules="nameRules" required></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -141,7 +181,9 @@
                         <v-flex xs12 sm6>
                           <v-menu
 
+
                             ref="startTimeMenu"
+
                             :close-on-content-click="false"
                             v-model="startTimeMenu"
                             :nudge-right="40"
@@ -206,10 +248,12 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-text-field label="Email" type='email' v-model="email" required></v-text-field>
+
+                        <v-text-field label="Email" v-model="email" :rules="emailRules" required></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" type='phone' v-model="phone" required></v-text-field>
+                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :rules="phoneRules" required></v-text-field>
+
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field label="Address" type="address" v-model="address" required></v-text-field>
@@ -269,11 +313,12 @@
               </v-card>
             </v-dialog>
           </div>
-
+          </v-parallax>
 
           <v-footer>Neil was here</v-footer>
         </v-app>
     </div>
+
 
 
 
