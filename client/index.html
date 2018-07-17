@@ -45,12 +45,14 @@
                                   label="Date"
                                 ></v-select>
 
+
                               </v-flex>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
 
 
 
                                <v-select
+
                                 style='width:130px'
 
                                   :items="typeFilters"
@@ -58,12 +60,8 @@
                                 ></v-select>
 
 
-
-
                               </v-flex>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
-
-
 
 
                                 <v-select
@@ -77,14 +75,8 @@
                           </v-toolbar-items>
                     </v-toolbar>
 
-
                     <v-layout row wrap>
-
-                    <v-layout row wrap>
-
                             <v-flex xs12 md4 sm6 v-for='lead in leads'>
-
-
                               <v-card style='margin:10px;' >
 
                                 <v-card-title primary-title>
@@ -129,15 +121,13 @@
                           </v-layout>
 
 
-
-
-
                </v-container>
-
 
         <v-container>
           <v-layout row justify-center>
-            <v-dialog v-model="dialog" persistent max-width="500px">
+
+            <v-dialog v-model="formDialog" persistent max-width="500px">
+
 
                 <v-btn slot="activator" color="primary" fixed bottom right fab dark>
                   <v-icon style='padding-top:30%;'>add</v-icon>
@@ -177,18 +167,20 @@
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
+                              <v-date-picker required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
 
                             </v-menu>
                           </v-flex>
                         <v-flex xs12 sm6>
                           <v-menu
 
-                            ref="timeMenu"
+
+                            ref="startTimeMenu"
+
                             :close-on-content-click="false"
-                            v-model="timeMenu"
+                            v-model="startTimeMenu"
                             :nudge-right="40"
-                            :return-value.sync="time"
+                            :return-value.sync="startTime"
                             lazy
                             transition="scale-transition"
                             offset-y
@@ -198,12 +190,53 @@
                             <v-text-field
 
                               slot="activator"
-                              v-model="time"
+                              v-model="startTime"
                               label="Time of Flight"
                               prepend-icon="access_time"
                               readonly
                             ></v-text-field>
-                            <v-time-picker v-model="time" @input="$refs.timeMenu.save(time)"></v-time-picker>
+                            <v-time-picker
+                              dark
+                              format='24hr'
+                              v-model="startTime"
+                              @input="$refs.startTimeMenu.save(startTime)"
+                              :allowed-minutes="allowedMinutes"
+                              :allowed-hours="allowedHours"
+                              required
+                            >
+                            </v-time-picker>
+                          </v-menu>
+                      </v-flex>
+                      <v-flex xs12 sm6>
+                          <v-menu
+                            ref="endTimeMenu"
+                            :close-on-content-click="false"
+                            v-model="endTimeMenu"
+                            :nudge-right="40"
+                            :return-value.sync="endTime"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            min-width="290px"
+                          >
+                            <v-text-field
+                              slot="activator"
+                              v-model="endTime"
+                              label="End Time"
+                              prepend-icon="access_time"
+                              readonly
+                            ></v-text-field>
+                            <v-time-picker
+                              dark
+                              format='24hr'
+                              v-model="endTime"
+                              @input="$refs.endTimeMenu.save(endTime)"
+                              :allowed-minutes="allowedMinutes"
+                              :allowed-hours="allowedHours"
+                              required
+                            >
+                            </v-time-picker>
                           </v-menu>
                       </v-flex>
 
@@ -221,8 +254,7 @@
 
                       <v-flex xs12 sm6>
                         <v-autocomplete
-                        v-model="type"
-                          :items="['Wedding', 'Property', 'Construction Inspection', 'Other']"
+                          :items=typeItems
                           label="Type"
 
                           chips
@@ -245,6 +277,37 @@
           </v-layout>
           </v-container>
 
+          <div class="text-xs-center">
+            <v-dialog
+              v-model="errorDialog"
+              width="500"
+            >
+              <v-card>
+                <v-card-title
+                  class="headline red lighten-2"
+                  primary-title
+                >
+                  Invalid Time Selected
+                </v-card-title>
+                <v-card-text>
+                  The time you have selected has already been taken. Please select another time.
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    flat
+                    @click="errorDialog = false"
+                  >
+                    Okay
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+
+
 
           <v-footer>Neil was here</v-footer>
         </v-app>
@@ -256,7 +319,7 @@
 
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
-        <script src='moment.js'></script>
+        <script src='moment.min.js'></script>
         <script src='main.js' type="module"></script>
     </body>
 </html>
