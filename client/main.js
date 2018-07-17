@@ -113,11 +113,14 @@ const app = new Vue({
             this.email = this.leads[indexOfLead].email
             this.type = this.leads[indexOfLead].type
             this.notes = this.leads[indexOfLead].notes
+            this.show = this.leads[indexOfLead].show
+          
         },
 
         updateLead(id) {
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
       			const updatedLead = {
+              show: false,
       				id: this.id,
       				name: this.name,
               date: this.date,
@@ -127,7 +130,7 @@ const app = new Vue({
               email: this.email,
               type: this.type,
               notes: this.notes,
-
+              
             }
             this.leads[indexOfLead] = updatedLead
         },
@@ -135,6 +138,7 @@ const app = new Vue({
         saveLead() {
             if (this.id !== null) {
                 this.updateLead(this.id)
+                
                 this.close()
             } else {
                 this.addLead()
@@ -161,6 +165,7 @@ const app = new Vue({
             this.type = null
             this.email = ''
             this.id = null
+            this.show = false
         }
     }
 

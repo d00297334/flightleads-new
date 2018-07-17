@@ -11,7 +11,7 @@
         <div id='app'>
             <v-app dark v-cloak>
                 <v-toolbar fixed>
-                  <img style='padding:30px; margin:15px;' width="150" height="150" src="./FLCRM_V2_White-08.png" alt="avatar">
+                  <img style='padding:30px; margin:15px;' height='120px' width='120px' src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
@@ -51,7 +51,7 @@
                     </v-toolbar>
 
                     <v-layout row wrap>
-                            <v-flex xs12 md4 sm6 v-for='lead in leads'>
+                            <v-flex xs12 md4 sm6 v-for='lead in leads'e>
                               <v-card style='margin:10px;' >
                                 <v-card-title primary-title>
                                   <div>
@@ -62,6 +62,7 @@
 
                                       <v-flex>
                                       <v-icon @click="lead.show = !lead.show" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                        {{lead.show}}
                                     </v-flex>
 
                                   </div>
