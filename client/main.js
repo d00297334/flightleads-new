@@ -19,17 +19,16 @@ const app = new Vue({
         }
     },
     methods: {
-
         addLead() {
             const lead = {
                 show: false,
                 name: this.name,
+                date: this.date,
                 address: this.address,
                 phone: this.phone,
-                date: this.date,
-                notes: this.notes,
-                startTime: this.endTime,
+                startTime: this.startTime,
                 endTime: this.endTime,
+                notes: this.notes,
                 type: this.type,
                 email: this.email,
                 id: Math.random(),
@@ -140,6 +139,11 @@ const app = new Vue({
             this.leads[indexOfLead].show = false
         },
 
+        restrictOldDates() {
+          var today = moment(Date.now().format('YYYY-MM-DD'))
+          return today.toString()
+        },
+
         saveLead() {
             if (this.id !== null) {
                 this.updateLead(this.id)
@@ -151,24 +155,24 @@ const app = new Vue({
         },
 
         deleteLead(lead) {
-            this.leads.splice(this.leads.indexOf(lead), 1)
+          this.leads.splice(this.leads.indexOf(lead), 1)
         },
 
         close() {
-            this.clear()
-            this.formDialog = false
+          this.clear()
+          this.formDialog = false
         },
 
         clear() {
-            this.name = '',
-            this.address = '',
-            this.phone = null,
-            this.date = null,
-            this.notes = '',
-            this.startTime = null,
-            this.endTime = null,
-            this.type = '',
-            this.email = null,
+            this.name = ''
+            this.address = ''
+            this.phone = null
+            this.date = null
+            this.notes = ''
+            this.startTime = null
+            this.endTime = null
+            this.type = ''
+            this.email = null
             this.id = null
         },
 

@@ -18,7 +18,7 @@
               >
 
                 <v-toolbar fixed>
-                  <img style='padding:30px; margin:15px;' width="150" height="150" src="./FLCRM_V2_White-08.png" alt="avatar">
+                  <img style='padding:30px; margin:15px;' height='120px' width='120px' src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
 
                 <div style='height:200px;'></div>
@@ -35,6 +35,7 @@
                           <v-toolbar-items style="align-items: space-around">
                               <v-spacer></v-spacer>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
 
 
                                 <v-select
@@ -82,6 +83,7 @@
                                     <h3>{{ formatDate(lead.date) }}<br>{{ lead.startTime }} - {{ lead.endTime }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
+                                    
 
                                     <v-flex>
                                       <v-icon @click="toggleShow(lead)" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
@@ -126,7 +128,7 @@
             <v-dialog v-model="formDialog" persistent max-width="500px">
 
 
-                <v-btn slot="activator" color="primary" fixed bottom right fab dark>
+                <v-btn slot="activator" color="black" fixed bottom right fab dark>
                   <v-icon style='padding-top:30%;'>add</v-icon>
                 </v-btn>
 
@@ -140,11 +142,11 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field v-model=name label="Full Name" :rules="nameRules" required></v-text-field>
+                        <v-text-field v-model='name' label="Full Name" :rules="nameRules" required></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
-
+                            
                               ref="menu2"
                               :close-on-content-click="false"
                               v-model="menu2"
@@ -158,14 +160,14 @@
 
                             >
                               <v-text-field
-
+                              
                                 slot="activator"
                                 v-model="date"
                                 label="Date of Flight"
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
+                              <v-date-picker min='2018-07-18' required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
 
                             </v-menu>
                           </v-flex>

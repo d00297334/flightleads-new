@@ -17,8 +17,16 @@ const data = () => ({
     type: '',
     notes: '',
     valid: false,
+    dateItems: ['Today', 'This Week', 'This Month'],
+    typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
+    statusItems: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
+    dateFilters: ['None', 'Today', 'This Week', 'This Month'],
+    typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
+    statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
+
     nameRules: [
-        v => !!v || 'Name is required'
+        v => !!v || 'Name is required',
+        v => v.length <= 80 ||  'Name is too long'
       ],
     emailRules: [
         v => !!v || 'E-mail is required',
@@ -39,7 +47,19 @@ const data = () => ({
 
     leads: [
         {
-          id: 1,
+            name:'event 1',
+            email: 'email@example.com',
+            address: '123 N 1349 E, UT 84770',
+            notes: 'show up 15 minutes early',
+            phone: '(123)-456-7890',
+            type: 'Real Estate',
+            date: '2018-04-19',
+            startTime: '14:30',
+            endTime: '15:30',
+            show: 'false',
+            id: 1
+        },
+        {
             name: 'Chandler 1',
             type: 'Videography',
             date:  '2018-07-18',
@@ -70,6 +90,7 @@ const data = () => ({
             show: false,
         },
     ],
+
 
 
 
