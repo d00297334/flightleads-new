@@ -24,13 +24,8 @@
                 <div style='height:200px;'></div>
                 <div style='height:200px;'></div>
 
-                <v-container>
-                    <v-toolbar>
-
-
-
-
-
+                <v-container style='max-height:50%;'>
+                  <v-toolbar>
                         <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
 
                         <v-spacer></v-spacer>
@@ -41,8 +36,6 @@
                               <v-spacer></v-spacer>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
 
-                          <v-toolbar-items>
-
 
                                 <v-select
 
@@ -51,38 +44,36 @@
                                   label="Date"
                                   v-model="dateFilter"
                                 ></v-select>
-
-
                               </v-flex>
+
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
-
-
-
                                <v-select
-
                                 style='width:130px'
                                   :items="typeFilters"
                                   label="Type"
                                   v-model="typeFilter"
                                 ></v-select>
-
-
                               </v-flex>
+
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
-
-
                                 <v-select
                                 style='width:130px'
                                   :items="statusFilters"
                                   label="Status"
                                   v-model="statusFilter"
                                 ></v-select>
-
+                              </v-flex>
+                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+                                <v-btn
+                                  style='width:130px'
+                                  @click='filterDates()'
+                                >Apply Filters</v-btn>
+                              </v-flex>
                           </v-toolbar-items>
                     </v-toolbar>
 
                     <v-layout row wrap>
-                            <v-flex xs12 md4 sm6 v-for='lead in leads' >
+                            <v-flex xs12 md4 sm6 v-for='lead in showFilteredDates()' :key='lead.id'>
                               <v-card style='margin:10px;' >
 
                                 <v-card-title primary-title>
@@ -92,8 +83,8 @@
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
 
-                                      <v-flex>
-                                      <v-icon @click="lead.show = !lead.show" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                    <v-flex>
+                                      <v-icon @click="toggleShow(lead)" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                                     </v-flex>
 
                                   </div>
@@ -149,7 +140,7 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field label="Full Name" :rules="nameRules" required></v-text-field>
+                        <v-text-field v-model=name label="Full Name" :rules="nameRules" required></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -164,6 +155,7 @@
                               offset-y
                               full-width
                               min-width="290px"
+
                             >
                               <v-text-field
 
@@ -262,7 +254,7 @@
                         <v-autocomplete
                           :items=typeItems
                           label="Type"
-
+                          v-model='type'
                           chips
                         ></v-autocomplete>
                       </v-flex>

@@ -5,7 +5,6 @@ const data = () => ({
     menu2: false,
     formDialog: false,
     errorDialog: false,
-    show: false,
     startTimeMenu: false,
     endTimeMenu: false,
     name: '',
@@ -30,45 +29,7 @@ const data = () => ({
       v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(v) || 'Phone number must be valid'
       ],
 
-    leads: [
-        {
-            name: 'event 1',
-            type: 'Construction',
-            date:  'July 30th, 2018',
-            address:  '123 St. Utah',
-            time: '12:30',
-            notes: 'these are extra notes',
-            show: false,
-        },
-        {
-            name: 'event 2',
-            type: 'Wedding',
-            date:  'July 30th, 2018',
-            address:  '123 St. Utah',
-            time: '4:10',
-            notes:'notes',
-            show: false,
-        },
-        {
-            name: 'event 3',
-            type: 'Construction',
-            date:  'July 30th, 2018',
-            address:  '123 St. Utah',
-            time: '12:30',
-            notes: 'these are extra notes',
-            show: false,
-        },
-        {
-            name: 'event 4',
-            type: 'Wedding',
-            date:  'July 30th, 2018',
-            address:  '123 St. Utah',
-            time: '4:10',
-            notes:'some notes',
-            show: false,
-        }
-
-    ],
+    leads: [],
     id: null,
     editingId: null,
     visible: null,
@@ -79,46 +40,36 @@ const data = () => ({
 
     leads: [
         {
-            name: 'event 1',
-            type: 'Construction',
-            date:  'July 30th, 2018',
+          id: 1,
+            name: 'Chandler 1',
+            type: 'Videography',
+            date:  '2018-07-18',
             startTime: '12:30',
             endTime: '13:30',
-            address:  '123 St. Utah',
+            address:  '123 Main Street St. George, Utah',
             notes: 'these are extra notes',
             show: false,
         },
         {
-            name: 'event 2',
+            name: 'Kath 2',
             type: 'Wedding',
-            date:  'July 24th, 2018',
-            address:  '123 St. Utah',
+            date:  '2018-07-20',
+            address:  '123 Apple St. St. George, Utah',
             startTime: '12:30',
             endTime: '13:30',
             notes:'notes',
             show: false,
         },
         {
-            name: 'event 3',
-            type: 'Construction',
-            date:  'July 30th, 2018',
-            address:  '123 St. Utah',
+            name: 'Neil 3',
+            type: 'LandSite/Survey',
+            date:  '2018-07-24',
+            address:  '123 State St. Kanab, Utah',
             startTime: '09:30',
             endTime: '11:30',
             notes: 'these are extra notes',
             show: false,
         },
-        {
-            name: 'event 4',
-            type: 'Wedding',
-            date:  'July 20th, 2018',
-            address:  '123 St. Utah',
-            startTime: '17:00',
-            endTime: '18:30',
-            notes:'some notes',
-            show: false,
-        }
-
     ],
 
 
@@ -127,7 +78,12 @@ const data = () => ({
     typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     statusItems: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
 
-    dateFilters: ['None', 'Today', 'This Week', 'This Month'],
+    dateFilters: [
+      {text:'None', filter:'none'},
+      {text:'Today', filter:'today'},
+      {text:'This Week', filter:'thisWeek'},
+      {text:'This Month', filter:'thisMonth'}
+    ],
     dateFilter: 'None',
     typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     typeFilter: 'None',

@@ -20,10 +20,9 @@ const app = new Vue({
     },
     methods: {
 
-
         addLead() {
             const lead = {
-                show: this.show,
+                show: false,
                 name: this.name,
                 address: this.address,
                 phone: this.phone,
@@ -36,7 +35,7 @@ const app = new Vue({
                 id: Math.random(),
                 visible: true
             }
-
+            console.log(lead)
             const isAvailable = this.isTimeAvailable()
             if (isAvailable) {
               this.storeAppt()
@@ -108,7 +107,7 @@ const app = new Vue({
         },
 
         formatDate(date) {
-            return moment(date).format('dddd, MMMM-Do-YYYY')
+            return moment(date).format('dddd, MMMM Do YYYY')
         },
 
         setEditingId(id) {
@@ -117,7 +116,8 @@ const app = new Vue({
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
             this.name = this.leads[indexOfLead].name
             this.date = this.leads[indexOfLead].date
-            this.time = this.leads[indexOfLead].time
+            this.startTime = this.leads[indexOfLead].startTime
+            this.endTime = this.leads[indexOfLead].endTime
             this.phone = this.leads[indexOfLead].phone
             this.address = this.leads[indexOfLead].address
             this.email = this.leads[indexOfLead].email
@@ -127,21 +127,17 @@ const app = new Vue({
 
         updateLead(id) {
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
-
-      			const updatedLead = {
-      				id: this.id,
-      				name: this.name,
-              date: this.date,
-              time:this.time,
-              phone: this.phone,
-              address: this.address,
-              email: this.email,
-              type: this.type,
-              notes: this.notes,
-
-
-            }
-            this.leads[indexOfLead] = updatedLead
+            this.leads[indexOfLead].id = this.id
+            this.leads[indexOfLead].name = this.name
+            this.leads[indexOfLead].date = this.date
+            this.leads[indexOfLead].startTime = this.startTime
+            this.leads[indexOfLead].endTime = this.endTime
+            this.leads[indexOfLead].phone = this.phone
+            this.leads[indexOfLead].address = this.address
+            this.leads[indexOfLead].email = this.email
+            this.leads[indexOfLead].type = this.type
+            this.leads[indexOfLead].notes = this.notes
+            this.leads[indexOfLead].show = false
         },
 
         saveLead() {
@@ -150,6 +146,7 @@ const app = new Vue({
                 this.close()
             } else {
                 this.addLead()
+                this.close()
             }
         },
 
@@ -163,29 +160,39 @@ const app = new Vue({
         },
 
         clear() {
-            this.name = ''
-            this.address = ''
-            this.phone = ''
-            this.date = null
-            this.notes = ''
-            this.time = null
-            this.type = null
-            this.email = ''
+            this.name = '',
+            this.address = '',
+            this.phone = null,
+            this.date = null,
+            this.notes = '',
+            this.startTime = null,
+            this.endTime = null,
+            this.type = '',
+            this.email = null,
             this.id = null
         },
 
-        filterDates(filter) {
-          const today = moment(new Date())
-          if (filter === 'None') {
+        showFilteredDates() {
+          if (this.dateFilter === 'None') {
             return this.leads
           }
-          if (filter === 'Today') {
-            for (lead in leads) {
-              if (lead.date == today) {
-                this.filteredDateLeads.push(lead)
+          return this.filteredDateLeads
+        },
+
+        filterDates() {
+          this.filteredDateLeads = []
+          const today = moment(new Date()).format('dddd, MMMM-Do-YYYY')
+          if (this.dateFilter === 'Today') {
+            for (const leadIndex in this.leads) {
+              if (moment(this.leads[leadIndex].date).format('dddd, MMMM-Do-YYYY') === today) {
+                this.filteredDateLeads.push(this.leads[leadIndex])
               }
-            } return this.filteredDateLeads
+            }
           }
+        },
+
+        toggleShow(lead) {
+          lead.show = !lead.show
 
         }
     }
