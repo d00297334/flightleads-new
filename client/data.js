@@ -29,7 +29,7 @@ const data = () => ({
       v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(v) || 'Phone number must be valid'
       ],
 
-    
+
     id: null,
     editingId: null,
     visible: null,
@@ -38,8 +38,7 @@ const data = () => ({
     },
 
 
-<<<<<<< HEAD
-=======
+
     leads: [
         {
           id: 1,
@@ -75,7 +74,7 @@ const data = () => ({
     ],
 
 
->>>>>>> master
+
 
     dateItems: ['Today', 'This Week', 'This Month'],
     typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
