@@ -24,13 +24,8 @@
                 <div style='height:200px;'></div>
                 <div style='height:200px;'></div>
 
-                <v-container>
+                <v-container style='max-height:500px;'>
                     <v-toolbar>
-
-
-
-
-
                         <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
 
                         <v-spacer></v-spacer>
@@ -41,7 +36,6 @@
                               <v-spacer></v-spacer>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
 
-                          <v-toolbar-items>
 
 
                                 <v-select
@@ -76,26 +70,25 @@
                                   :items="statusFilters"
                                   label="Status"
                                 ></v-select>
-
+                                </v-flex>
 
                           </v-toolbar-items>
                     </v-toolbar>
 
                     <v-layout row wrap>
                             <v-flex xs12 md4 sm6 v-for='lead in leads'e>
-                              <v-card style='margin:10px;' >
-
+                              <v-card style='margin:10px;'>
                                 <v-card-title primary-title>
                                   <div>
                                     <h2 class="headline mb-0">{{ lead.name }}</h2>
-                                    <h3>{{ formatDate(lead.date) }}<br>{{ lead.time }}</h3>
+                                    <h3>{{ formatDate(lead.date) }}<br>{{ lead.startTime }} - {{ lead.endTime }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
+                                    
 
                                       <v-flex>
                                       <v-icon @click="lead.show = !lead.show" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-                                        {{lead.show}}
-                                    </v-flex>
+                                    </v-flex>{{lead.show}}
 
                                   </div>
                                 </v-card-title>
@@ -136,7 +129,7 @@
             <v-dialog v-model="formDialog" persistent max-width="500px">
 
 
-                <v-btn slot="activator" color="primary" fixed bottom right fab dark>
+                <v-btn slot="activator" color="black" fixed bottom right fab dark>
                   <v-icon style='padding-top:30%;'>add</v-icon>
                 </v-btn>
 
@@ -150,11 +143,11 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field label="Full Name" :rules="nameRules" required></v-text-field>
+                        <v-text-field v-model='name' label="Full Name" :rules="nameRules" required></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
-
+                            
                               ref="menu2"
                               :close-on-content-click="false"
                               v-model="menu2"
@@ -167,14 +160,14 @@
                               min-width="290px"
                             >
                               <v-text-field
-
+                              
                                 slot="activator"
                                 v-model="date"
                                 label="Date of Flight"
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
+                              <v-date-picker min='2018-07-18' required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
 
                             </v-menu>
                           </v-flex>
@@ -263,7 +256,7 @@
                         <v-autocomplete
                           :items=typeItems
                           label="Type"
-
+                          v-model='type'
                           chips
                         ></v-autocomplete>
                       </v-flex>

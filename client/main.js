@@ -19,18 +19,16 @@ const app = new Vue({
         }
     },
     methods: {
-
-
         addLead() {
             const lead = {
-                show: this.show,
+                show: false,
                 name: this.name,
+                date: this.date,
                 address: this.address,
                 phone: this.phone,
-                date: this.date,
-                notes: this.notes,
-                startTime: this.endTime,
+                startTime: this.startTime,
                 endTime: this.endTime,
+                notes: this.notes,
                 type: this.type,
                 email: this.email,
                 id: Math.random(),
@@ -109,39 +107,41 @@ const app = new Vue({
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
             this.name = this.leads[indexOfLead].name
             this.date = this.leads[indexOfLead].date
-            this.time = this.leads[indexOfLead].time
+            this.startTime = this.leads[indexOfLead].startTime
+            this.endTime = this.leads[indexOfLead].endTime
             this.phone = this.leads[indexOfLead].phone
             this.address = this.leads[indexOfLead].address
             this.email = this.leads[indexOfLead].email
             this.type = this.leads[indexOfLead].type
             this.notes = this.leads[indexOfLead].notes
-            this.show = this.leads[indexOfLead].show
-          
         },
 
         updateLead(id) {
             const indexOfLead = this.leads.findIndex(lead => lead.id === id)
-
       			const updatedLead = {
               show: false,
       				id: this.id,
       				name: this.name,
               date: this.date,
-              time:this.time,
+              startTime:this.startTime,
+              endTime: this.endTime,
               phone: this.phone,
               address: this.address,
               email: this.email,
               type: this.type,
               notes: this.notes,
-            
             }
             this.leads[indexOfLead] = updatedLead
+        },
+
+        restrictOldDates() {
+          var today = moment(Date.now().format('YYYY-MM-DD'))
+          return today.toString()
         },
 
         saveLead() {
             if (this.id !== null) {
                 this.updateLead(this.id)
-                
                 this.close()
             } else {
                 this.addLead()
@@ -150,25 +150,26 @@ const app = new Vue({
         },
 
         deleteLead(lead) {
-            this.leads.splice(this.leads.indexOf(lead), 1)
+          this.leads.splice(this.leads.indexOf(lead), 1)
         },
 
         close() {
-            this.clear()
-            this.formDialog = false
+          this.clear()
+          this.formDialog = false
         },
 
         clear() {
-            this.name = ''
+            this.name = null
             this.address = ''
-            this.phone = ''
+            this.phone = null
             this.date = null
             this.notes = ''
-            this.time = null
+            this.startTime = null
+            this.endTime = null
             this.type = null
-            this.email = ''
+            this.email = null
             this.id = null
-            this.show = false
+            
         }
     }
 
