@@ -57,7 +57,7 @@ const data = () => ({
             date: '2018-04-19',
             startTime: '14:30',
             endTime: '15:30',
-            show: 'false',
+            show: false,
             id: 1
         },
         {

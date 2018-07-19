@@ -140,8 +140,9 @@ const app = new Vue({
         },
 
         restrictOldDates() {
-          var today = moment(Date.now().format('YYYY-MM-DD'))
-          return today.toString()
+          let today = moment(new Date()).format('YYYY-MM-DD')
+          return today
+          
         },
 
         saveLead() {

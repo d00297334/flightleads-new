@@ -79,6 +79,7 @@
 
                                 <v-card-title primary-title>
                                   <div>
+                                    
                                     <h2 class="headline mb-0">{{ lead.name }}</h2>
                                     <h3>{{ formatDate(lead.date) }}<br>{{ lead.startTime }} - {{ lead.endTime }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
@@ -167,7 +168,7 @@
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker min='2018-07-18' required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
+                              <v-date-picker :min='restrictOldDates()' required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
 
                             </v-menu>
                           </v-flex>
@@ -312,12 +313,13 @@
         </v-app>
     </div>
 
-
-
-
         <script src='moment.min.js'></script>
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
         <script src='main.js' type="module"></script>
+        <script>
+          var todayDate = '2018-07-18'
+        
+        </script>
     </body>
 </html>
