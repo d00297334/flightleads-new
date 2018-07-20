@@ -165,8 +165,9 @@ const app = new Vue({
         },
 
         restrictOldDates() {
-          var today = moment(Date.now().format('YYYY-MM-DD'))
-          return today.toString()
+          let today = moment(new Date()).format('YYYY-MM-DD')
+          return today
+          
         },
 
         saveLead() {
@@ -264,6 +265,16 @@ const app = new Vue({
         toggleShow(lead) {
           lead.show = !lead.show
 
+        },
+
+        setMailInfo(id) {
+          const indexOfLead = this.leads.findIndex(lead => lead.id === id)
+
+          this.emailDialog = true
+          this.to = this.leads[indexOfLead].email
+          this.subject = `Flight Leads Confirmation`
+          this.text = `${this.leads[indexOfLead].name.toUpperCase()},
+you have a flight leads appointment on ${moment(this.leads[indexOfLead].date).format('MMMM Do, YYYY')} at ${this.leads[indexOfLead].startTime}.`
         }
     }
 
