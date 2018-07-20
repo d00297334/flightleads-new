@@ -84,7 +84,7 @@
                                     <h3>{{ formatDate(lead.date) }}<br>{{ lead.startTime }} - {{ lead.endTime }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
-                                    
+
 
                                     <v-flex>
                                       <v-icon @click="toggleShow(lead)" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
@@ -108,9 +108,49 @@
 
 
 
-                                          <v-btn flat fab color="blue darken-1" @click='setEditingId(lead.id)'>edit</v-btn>
-                                          <v-btn flat fab color="blue darken-1" @click='deleteLead(lead)'>delete</v-btn>
-                                          <v-btn flat fab color='blue darken-1' @click='setMailInfo(lead.id)'><v-icon style='padding-top:30%'>email</v-icon></v-btn>
+                                        
+                                          <v-btn flat fab color="blue" @click='setEditingId(lead.id)'>edit</v-btn>
+                                          <v-btn flat fab color="blue" @click='deleteLead(lead)'>delete</v-btn>
+                                          <v-btn flat fab  color='blue darken-1' @click='setMailInfo(lead.id)'><v-icon style='padding-top:30%'>email</v-icon></v-btn>
+            <!-- Delete Dialog Box -->
+                                            <div class="text-xs-center">
+                                              <v-dialog
+                                                :value='deletingId'
+                                                v-model="deleteDialog"
+                                                width="300"
+                                              >
+                                                <v-card>
+                                                  <v-card-title
+                                                    class="headline red lighten-1"
+                                                    primary-title
+                                                  >
+                                                    Are you sure you want to delete this lead?
+                                                  </v-card-title>
+                                                  <v-card-text>
+                                                    Once deleted you will not be able to access any date from this Lead.
+                                                    Are you sure you want to continue with this action?
+                                                  </v-card-text>
+                                                  <v-divider></v-divider>
+                                                  <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn
+                                                      color="green"
+                                                      flat
+                                                      @click="deleteDialog = false"
+                                                    >
+                                                      No, Cancel!
+                                                    </v-btn>
+                                                    <v-btn
+                                                      color="red"
+                                                      flat
+                                                      @click="deleteLead()"
+                                                    >
+                                                      Yes, Delete!
+                                                    </v-btn>
+                                                  </v-card-actions>
+                                                  </v-card>
+                                                </v-dialog>
+                                              </div>
 
 
                                         </v-card-actions>
@@ -148,7 +188,7 @@
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
-                            
+
                               ref="menu2"
                               :close-on-content-click="false"
                               v-model="menu2"
@@ -162,7 +202,7 @@
 
                             >
                               <v-text-field
-                              
+
                                 slot="activator"
                                 v-model="date"
                                 label="Date of Flight"
@@ -279,6 +319,7 @@
           </v-layout>
           </v-container>
 
+<!-- Time Already Selected Dialog Box -->
           <div class="text-xs-center">
             <v-dialog
               v-model="errorDialog"
@@ -289,7 +330,7 @@
                   class="headline red lighten-2"
                   primary-title
                 >
-                  Invalid Time Selected
+                  Unavailable Time Selected
                 </v-card-title>
                 <v-card-text>
                   The time you have selected has already been taken. Please select another time.
@@ -348,6 +389,39 @@
 
 
           </div>
+
+<!-- Invalid Time Dialog Box -->
+          <div class="text-xs-center">
+            <v-dialog
+              v-model="invalidTimeDialog"
+              width="500"
+            >
+              <v-card>
+                <v-card-title
+                  class="headline red lighten-2"
+                  primary-title
+                >
+                  Invalid Time Selected
+                </v-card-title>
+                <v-card-text>
+                  The End time you have selected is before the Start Time. Please select a valid time.
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    flat
+                    @click="invalidTimeDialog = false"
+                  >
+                    Okay
+                  </v-btn>
+                </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
+
+
           </v-parallax>
 
           <v-footer>Neil was here</v-footer>
