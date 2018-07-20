@@ -47,14 +47,19 @@ const app = new Vue({
                 id: Math.random(),
                 visible: true
             }
-            console.log(lead)
+            const timeValid = this.isTimeValid()
             const isAvailable = this.isTimeAvailable()
-            if (isAvailable) {
-              this.storeAppt()
-              this.leads.unshift(lead)
-              this.clear()
+            if (timeValid) {
+              if (isAvailable) {
+                this.storeAppt()
+                this.leads.unshift(lead)
+                this.close()
+                this.clear()
+              } else {
+                this.errorDialog = true
+              }
             } else {
-              this.errorDialog = true
+              this.invalidTimeDialog = true
             }
         },
 
@@ -69,7 +74,6 @@ const app = new Vue({
         },
 
         isTimeAvailable() {
-
           const unavailableTimes = this.selectedAppts[this.date]
           if (!unavailableTimes) {
             return true
@@ -93,6 +97,12 @@ const app = new Vue({
             }
           }
           return true
+        },
+
+        isTimeValid() {
+          if (moment(this.endTime, 'HH:mm').isBefore(moment(this.startTime, 'HH:mm'))) {
+          return false
+        } else return true
         },
 
         allowedHours(hour) {
@@ -119,7 +129,7 @@ const app = new Vue({
         },
 
         formatDate(date) {
-            return moment(date).format('dddd, MMMM Do YYYY')
+            return moment(date).format('dddd, MMMM Do, YYYY')
         },
 
         setEditingId(id) {
@@ -150,6 +160,8 @@ const app = new Vue({
             this.leads[indexOfLead].type = this.type
             this.leads[indexOfLead].notes = this.notes
             this.leads[indexOfLead].show = false
+            this.close()
+
         },
 
         restrictOldDates() {
@@ -163,18 +175,25 @@ const app = new Vue({
               if (this.id !== null) {
                 console.log('updating')
                 this.updateLead(this.id)
-                this.close()
             } else {
                 console.log('adding')
                 this.addLead()
-                this.close()
             }
             this.$refs.nameRef.focus()
           }
         },
 
+        setDeletingId(id) {
+          this.deleteDialog = true
+          this.deletingId = id
+        },
+
         deleteLead(lead) {
+          // const indexOfLead = this.leads.findIndex(lead => lead.id === this.deletingId)
           this.leads.splice(this.leads.indexOf(lead), 1)
+          // this.leads = this.leads.filter(lead => lead.id !== this.deletingId)
+          // this.deleteDialog = false
+          // this.deletingId = null
         },
 
         close() {

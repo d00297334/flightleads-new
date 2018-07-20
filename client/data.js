@@ -5,6 +5,8 @@ const data = () => ({
     menu2: false,
     formDialog: false,
     errorDialog: false,
+    invalidTimeDialog: false,
+    deleteDialog: false,
     startTimeMenu: false,
     endTimeMenu: false,
     name: '',
@@ -27,10 +29,13 @@ const data = () => ({
     dateFilters: ['None', 'Today', 'This Week', 'This Month'],
     typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
-    
+
+
+
 
     id: null,
     editingId: null,
+    deletingId: null,
     visible: null,
     selectedAppts: {
       '2018-07-18':[{startTime: "10:30", endTime: "11:30"}]
@@ -49,7 +54,7 @@ const data = () => ({
             date: '2018-04-19',
             startTime: '14:30',
             endTime: '15:30',
-            show: 'false',
+            show: false,
             id: 1
         },
         {
@@ -61,6 +66,7 @@ const data = () => ({
             address:  '123 Main Street St. George, Utah',
             notes: 'these are extra notes',
             show: false,
+            id: 2
         },
         {
             name: 'Kath 2',
@@ -71,6 +77,7 @@ const data = () => ({
             endTime: '13:30',
             notes:'notes',
             show: false,
+            id: 3
         },
         {
             name: 'Neil 3',
@@ -81,8 +88,11 @@ const data = () => ({
             endTime: '11:30',
             notes: 'these are extra notes',
             show: false,
+            id: 4
         },
     ],
+
+
 
 
     dateItems: ['Today', 'This Week', 'This Month'],
