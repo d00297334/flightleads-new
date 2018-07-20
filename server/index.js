@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -9,9 +10,11 @@ const leadsRouter = require('./routes/leads')
 app.use(bodyParser.json())
 
 
-app.use(express.static(`${__dirname}/../client`))
+
 
 app.use('/leads', leadsRouter)
+
+app.use(express.static(`${__dirname}/../client`))
 
 app.use((req, res, next) => {
   if (req.error) {

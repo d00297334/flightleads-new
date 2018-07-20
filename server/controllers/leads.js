@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 const moment = require('client/moment')
+=======
+>>>>>>> d1b7e25f71c12ed6978771ff2f102f386d598057
 const Lead = require('../models/leads')
+const moment = require('moment')
 
 
 module.exports = {
