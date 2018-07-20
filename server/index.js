@@ -2,15 +2,11 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const .env = require('dotenv').config()
 const app = express()
 
 const leadsRouter = require('./routes/leads')
 
 app.use(bodyParser.json())
-
-const mongoose = require('mongoose')
-const app = express()
 
 
 app.use(express.static(`${__dirname}/../client`))
@@ -37,6 +33,6 @@ mongoose.connect(process.env.DB_URL)
   .then(() => {
 
     console.log("Databse Working")
-    app.listen(3000)
+    app.listen(5000)
 
   })
