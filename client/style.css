@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+.v-parallax {
+  min-height: 1000px;
+}
+
 .v-input__slot {
   margin:0px;
 }

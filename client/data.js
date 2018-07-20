@@ -18,7 +18,11 @@ const data = () => ({
     address: '',
     type: '',
     notes: '',
-    valid: false,
+    valid: {
+      name: true,
+      email: true,
+      phone: true
+    },
     dateItems: ['Today', 'This Week', 'This Month'],
     typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     statusItems: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
@@ -26,18 +30,8 @@ const data = () => ({
     typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
 
-    nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 80 ||  'Name is too long'
-      ],
-    emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
-      ],
-    phoneRules: [
-      v => !!v || 'Phone number is required',
-      v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(v) || 'Phone number must be valid'
-      ],
+
+
 
     id: null,
     editingId: null,
@@ -46,6 +40,7 @@ const data = () => ({
     selectedAppts: {
       '2018-07-18':[{startTime: "10:30", endTime: "11:30"}]
     },
+
 
 
     leads: [
