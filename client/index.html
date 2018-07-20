@@ -108,8 +108,9 @@
 
 
 
-                                          <v-btn flat color="blue" @click='setEditingId(lead.id)'>edit</v-btn>
-                                          <v-btn flat color="blue" @click='deleteLead(lead)'>delete</v-btn>
+                                          <v-btn flat fab color="blue darken-1" @click='setEditingId(lead.id)'>edit</v-btn>
+                                          <v-btn flat fab color="blue darken-1" @click='deleteLead(lead)'>delete</v-btn>
+                                          <v-btn flat fab color='blue darken-1' @click='setMailInfo(lead.id)'><v-icon style='padding-top:30%'>email</v-icon></v-btn>
 
 
                                         </v-card-actions>
@@ -269,9 +270,9 @@
                   <small>*indicates required field</small>
                 </v-card-text>
                 <v-card-actions>
-
                   <v-btn color="blue darken-1" flat @click="close()">Close</v-btn>
                   <v-btn color="blue darken-1" flat @click="saveLead()">{{ changeFormSubmit }}</v-btn>
+                  
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -306,6 +307,46 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+
+
+            <template>
+              <v-layout row justify-center>
+                <v-dialog v-model="emailDialog" persistent max-width="500px">
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">Send Confirmation Email</span>
+                    </v-card-title><br/><br/>
+                    <form action="/send-email" method="post">
+                    <v-card-text>
+                      <v-container grid-list-md>
+                        <v-layout wrap>
+                          <v-flex xs12>
+                           <v-text-field name='to' for='to' v-model='to' label="To" readonly required box></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field name='subject' for="subject" v-model='subject' label="Subject" clearable required box></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-textarea name='body' for="body" v-model='text' label="Text" clearable type="text" box required></v-textarea>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+                    </v-card-text>
+                    
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" flat @click="emailDialog = false">Close</v-btn>
+                      <v-btn color="blue darken-1" type='submit' flat @click="emailDialog = false">Send</v-btn>
+                    </v-card-actions>
+                    <br/><br/>
+                  </form>
+                  </v-card>
+                </v-dialog>
+              </v-layout>
+            </template>
+
+
+
           </div>
           </v-parallax>
 
@@ -317,9 +358,6 @@
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
         <script src='main.js' type="module"></script>
-        <script>
-          var todayDate = '2018-07-18'
         
-        </script>
     </body>
 </html>

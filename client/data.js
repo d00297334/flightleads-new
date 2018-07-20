@@ -1,5 +1,9 @@
 
 const data = () => ({
+    emailDialog: false,
+    to: null,
+    subject: null,
+    text: null,
     menu: false,
     modal: false,
     menu2: false,
@@ -58,6 +62,7 @@ const data = () => ({
             startTime: '14:30',
             endTime: '15:30',
             show: false,
+            
             id: 1
         },
         {
@@ -66,6 +71,7 @@ const data = () => ({
             date:  '2018-07-18',
             startTime: '12:30',
             endTime: '13:30',
+            email: 'kathleencram11@gmail.com',
             address:  '123 Main Street St. George, Utah',
             notes: 'these are extra notes',
             show: false,
@@ -78,6 +84,7 @@ const data = () => ({
             startTime: '12:30',
             endTime: '13:30',
             notes:'notes',
+            email: 'kathleen.cram@dixiesuccess.org',
             show: false,
         },
         {
@@ -87,6 +94,7 @@ const data = () => ({
             address:  '123 State St. Kanab, Utah',
             startTime: '09:30',
             endTime: '11:30',
+            email:'kathleencram11@gmail.com',
             notes: 'these are extra notes',
             show: false,
         },
