@@ -8,7 +8,19 @@ const app = new Vue({
       date(val) {
         if (val !== '')
           this.date = this.date
-        }
+        },
+      name(val) {
+        if (val !== '')
+          this.valid.amount = this.validName()
+          },
+      email(val) {
+        if (val !== '')
+          this.valid.email = this.validEmail()
+      },
+      phone(val) {
+        if (val !== '')
+          this.valid.phone = this.validPhone()
+        },
       },
     computed: {
         changeFormMenu() {
@@ -18,18 +30,18 @@ const app = new Vue({
             return this.id === null ? 'Create Lead' : 'Save Lead'
         }
     },
-    methods: {
 
+    methods: {
         addLead() {
             const lead = {
                 show: false,
                 name: this.name,
+                date: this.date,
                 address: this.address,
                 phone: this.phone,
-                date: this.date,
-                notes: this.notes,
-                startTime: this.endTime,
+                startTime: this.startTime,
                 endTime: this.endTime,
+                notes: this.notes,
                 type: this.type,
                 email: this.email,
                 id: Math.random(),
@@ -140,36 +152,75 @@ const app = new Vue({
             this.leads[indexOfLead].show = false
         },
 
+        restrictOldDates() {
+          var today = moment(Date.now().format('YYYY-MM-DD'))
+          return today.toString()
+        },
+
         saveLead() {
-            if (this.id !== null) {
+          console.log('saving lead')
+            if (this.isValid()) {
+              if (this.id !== null) {
+                console.log('updating')
                 this.updateLead(this.id)
                 this.close()
             } else {
+                console.log('adding')
                 this.addLead()
                 this.close()
             }
+            this.$refs.nameRef.focus()
+          }
         },
 
         deleteLead(lead) {
-            this.leads.splice(this.leads.indexOf(lead), 1)
+          this.leads.splice(this.leads.indexOf(lead), 1)
         },
 
         close() {
-            this.clear()
-            this.formDialog = false
+          this.clear()
+          this.formDialog = false
+        },
+
+        validName() {
+          return this.name !== '' && this.name.length <= 60
+        },
+
+        validEmail() {
+          return this.email !== '' && /.+@.+/.test(this.email)
+        },
+        validPhone() {
+          return this.phone !== '' && /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phone)
+        },
+
+        isValid() {
+          this.valid = {
+            name: this.validName(),
+            email: this.validEmail(),
+            phone: this.validPhone(),
+          }
+          for(const key in this.valid) {
+            if (!this.valid[key]) {
+              return false
+            }
+          }
+          return true
         },
 
         clear() {
-            this.name = '',
-            this.address = '',
-            this.phone = null,
-            this.date = null,
-            this.notes = '',
-            this.startTime = null,
-            this.endTime = null,
-            this.type = '',
-            this.email = null,
+            this.name = ''
+            this.address = ''
+            this.phone = null
+            this.date = null
+            this.notes = ''
+            this.startTime = null
+            this.endTime = null
+            this.type = ''
+            this.email = null
             this.id = null
+            this.valid.name = true
+            this.valid.email = true
+            this.valid.phone = true
         },
 
         showFilteredDates() {

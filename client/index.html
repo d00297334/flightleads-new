@@ -18,7 +18,7 @@
               >
 
                 <v-toolbar fixed>
-                  <img style='padding:30px; margin:15px;' width="150" height="150" src="./FLCRM_V2_White-08.png" alt="avatar">
+                  <img style='padding:30px; margin:15px;' height='120px' width='120px' src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
 
 
@@ -35,6 +35,7 @@
                           <v-toolbar-items style="align-items: space-around">
                               <v-spacer></v-spacer>
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
 
 
                                 <v-select
@@ -83,6 +84,7 @@
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
                                     <h4 class='font-weight-light'>{{ lead.type }}</h4>
 
+
                                     <v-flex>
                                       <v-icon @click="toggleShow(lead)" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                                     </v-flex>
@@ -126,7 +128,7 @@
             <v-dialog v-model="formDialog" persistent max-width="500px">
 
 
-                <v-btn slot="activator" color="primary" fixed bottom right fab dark>
+                <v-btn slot="activator" color="black" fixed bottom right fab dark>
                   <v-icon style='padding-top:30%;'>add</v-icon>
                 </v-btn>
 
@@ -140,7 +142,7 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field v-model=name label="Full Name" :rules="nameRules" required></v-text-field>
+                        <v-text-field v-model='name' label="Full Name"  :class="{'errror-textbox': !valid.name}" ref="nameRef" type="text" ></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -165,7 +167,7 @@
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
+                              <v-date-picker min='2018-07-18' required v-model="date" @input="$refs.menu2.save(date)"></v-date-picker>
 
                             </v-menu>
                           </v-flex>
@@ -240,10 +242,10 @@
 
                       <v-flex xs12>
 
-                        <v-text-field label="Email" v-model="email" :rules="emailRules"></v-text-field>
+                        <v-text-field label="Email" v-model="email" :class="{'error-textbox': !valid.email}"></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :rules="phoneRules"></v-text-field>
+                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :class="{'error-textbox': !valid.phoneNumber}"></v-text-field>
 
                       </v-flex>
                       <v-flex xs12>
@@ -280,6 +282,17 @@
               v-model="errorDialog"
               width="500"
             >
+
+            <v-alert :value="!valid.name" type="error">
+              Enter valid name
+            </v-alert>
+            <v-alert :value="!valid.email" type="error">
+              Enter valid email
+            </v-alert>
+            <v-alert :value="!valid.phoneNumber" type="error">
+              Enter valid phone number
+            </v-alert>
+
               <v-card>
                 <v-card-title
                   class="headline red lighten-2"
