@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const leadController = require('../controllers/leads')
 
+
 // COLLECTION PATHS
 
 // a get to `/expenses`
@@ -20,4 +21,5 @@ router.delete('/:id', leadController.deleteLead)
 router.get('/:id', leadController.getLead)
 
 // export default router
+
 module.exports = router

@@ -13,7 +13,7 @@
 
               <v-parallax
               src="drone3.jpg"
-              height="1000"
+              height="100%"
               jumbotron
               >
 
@@ -21,8 +21,8 @@
                   <img style='padding:30px; margin:15px;' height='120px' width='120px' src="./FLCRM_V2_White-08.png" alt="avatar">
                 </v-toolbar>
 
-                <div style='height:200px;'></div>
-                <div style='height:200px;'></div>
+
+                <div style='height:100px;'></div>
 
                 <v-container style='max-height:50%;'>
                   <v-toolbar>
@@ -184,7 +184,7 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field v-model='name' label="Full Name" :rules="nameRules" required></v-text-field>
+                        <v-text-field v-model='name' label="Full Name"  :class="{'errror-textbox': !valid.name}" ref="nameRef" type="text" ></v-text-field>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -284,10 +284,10 @@
 
                       <v-flex xs12>
 
-                        <v-text-field label="Email" v-model="email" :rules="emailRules"></v-text-field>
+                        <v-text-field label="Email" v-model="email" :class="{'error-textbox': !valid.email}"></v-text-field>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :rules="phoneRules"></v-text-field>
+                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :class="{'error-textbox': !valid.phoneNumber}"></v-text-field>
 
                       </v-flex>
                       <v-flex xs12>
@@ -325,6 +325,17 @@
               v-model="errorDialog"
               width="500"
             >
+
+            <v-alert :value="!valid.name" type="error">
+              Enter valid name
+            </v-alert>
+            <v-alert :value="!valid.email" type="error">
+              Enter valid email
+            </v-alert>
+            <v-alert :value="!valid.phoneNumber" type="error">
+              Enter valid phone number
+            </v-alert>
+
               <v-card>
                 <v-card-title
                   class="headline red lighten-2"
@@ -354,6 +365,7 @@
               <v-layout row justify-center>
                 <v-dialog v-model="emailDialog" persistent max-width="500px">
                   <v-card>
+                    <br/>
                     <v-card-title>
                       <span class="headline">Send Confirmation Email</span>
                     </v-card-title><br/><br/>
@@ -390,6 +402,7 @@
 
           </div>
 
+
 <!-- Invalid Time Dialog Box -->
           <div class="text-xs-center">
             <v-dialog
@@ -424,11 +437,11 @@
 
           </v-parallax>
 
-          <v-footer>Neil was here</v-footer>
+
         </v-app>
     </div>
 
-        <script src='moment.min.js'></script>
+        <script src='moment.js'></script>
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
         <script src='main.js' type="module"></script>

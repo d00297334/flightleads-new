@@ -8,7 +8,19 @@ const app = new Vue({
       date(val) {
         if (val !== '')
           this.date = this.date
-        }
+        },
+      name(val) {
+        if (val !== '')
+          this.valid.amount = this.validName()
+          },
+      email(val) {
+        if (val !== '')
+          this.valid.email = this.validEmail()
+      },
+      phone(val) {
+        if (val !== '')
+          this.valid.phone = this.validPhone()
+        },
       },
     computed: {
         changeFormMenu() {
@@ -18,6 +30,7 @@ const app = new Vue({
             return this.id === null ? 'Create Lead' : 'Save Lead'
         }
     },
+
     methods: {
         addLead() {
             const lead = {
@@ -158,11 +171,17 @@ const app = new Vue({
         },
 
         saveLead() {
-            if (this.id !== null) {
+          console.log('saving lead')
+            if (this.isValid()) {
+              if (this.id !== null) {
+                console.log('updating')
                 this.updateLead(this.id)
             } else {
+                console.log('adding')
                 this.addLead()
             }
+            this.$refs.nameRef.focus()
+          }
         },
 
         setDeletingId(id) {
@@ -183,6 +202,31 @@ const app = new Vue({
           this.formDialog = false
         },
 
+        validName() {
+          return this.name !== '' && this.name.length <= 60
+        },
+
+        validEmail() {
+          return this.email !== '' && /.+@.+/.test(this.email)
+        },
+        validPhone() {
+          return this.phone !== '' && /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phone)
+        },
+
+        isValid() {
+          this.valid = {
+            name: this.validName(),
+            email: this.validEmail(),
+            phone: this.validPhone(),
+          }
+          for(const key in this.valid) {
+            if (!this.valid[key]) {
+              return false
+            }
+          }
+          return true
+        },
+
         clear() {
             this.name = ''
             this.address = ''
@@ -194,6 +238,9 @@ const app = new Vue({
             this.type = ''
             this.email = null
             this.id = null
+            this.valid.name = true
+            this.valid.email = true
+            this.valid.phone = true
         },
 
         showFilteredDates() {
