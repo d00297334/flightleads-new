@@ -1,5 +1,5 @@
 import data from './data.js'
-
+import api from './helpers/api.js'
 
 const app = new Vue({
     el: '#app',
@@ -44,22 +44,26 @@ const app = new Vue({
                 notes: this.notes,
                 type: this.type,
                 email: this.email,
-                id: Math.random(),
                 visible: true
             }
             const timeValid = this.isTimeValid()
             const isAvailable = this.isTimeAvailable()
-            if (timeValid) {
-              if (isAvailable) {
-                this.storeAppt()
-                this.leads.unshift(lead)
-                this.close()
-                this.clear()
-              } else {
-                this.errorDialog = true
-              }
-            } else {
+            if (!timeValid) {
               this.invalidTimeDialog = true
+            } else if (isAvailable) {
+              api.addLead(lead)
+                .then(lead => {
+                  this.leads.unshift(lead)
+                  this.close()
+                  this.clear()
+                  this.storeAppt()
+                })
+                .catch(e => {
+                  console.log(e)
+                  this.errorDialog = true
+                })
+            } else {
+              this.errorDialog = true
             }
         },
 
@@ -167,13 +171,13 @@ const app = new Vue({
         restrictOldDates() {
           let today = moment(new Date()).format('YYYY-MM-DD')
           return today
-          
+
         },
 
         saveLead() {
           console.log('saving lead')
             if (this.isValid()) {
-              if (this.id !== null) {
+              if (this.id) {
                 console.log('updating')
                 this.updateLead(this.id)
             } else {

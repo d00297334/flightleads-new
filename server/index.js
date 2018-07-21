@@ -32,7 +32,9 @@ app.use((req, res, next) => {
   }
 })
 
-mongoose.connect(process.env.DB_URL)
+const options = {useNewUrlParser: true}
+
+mongoose.connect(process.env.DB_URL, options)
   .then(() => {
 
     console.log("Databse Working")
