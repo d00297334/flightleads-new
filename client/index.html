@@ -242,8 +242,8 @@
                               format='24hr'
                               v-model="startTime"
                               @input="$refs.startTimeMenu.save(startTime)"
-                              :allowed-minutes="allowedMinutes"
                               :allowed-hours="allowedHours"
+                              :allowed-minutes="allowedMinutes"
                               required
                             >
                             </v-time-picker>
@@ -274,8 +274,8 @@
                               format='24hr'
                               v-model="endTime"
                               @input="$refs.endTimeMenu.save(endTime)"
-                              :allowed-minutes="allowedMinutes"
                               :allowed-hours="allowedHours"
+                              :allowed-minutes="allowedMinutes"
                               required
                             >
                             </v-time-picker>

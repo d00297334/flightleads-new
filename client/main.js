@@ -31,10 +31,10 @@ const app = new Vue({
       },
     computed: {
         changeFormMenu() {
-			return this._id === null ? 'New Lead' : 'Update Lead'
+			return this.editingId === null ? 'New Lead' : 'Update Lead'
         },
         changeFormSubmit() {
-            return this._id === null ? 'Create Lead' : 'Save Lead'
+            return this.editingId === null ? 'Create Lead' : 'Save Lead'
         }
     },
 
@@ -59,12 +59,10 @@ const app = new Vue({
               api
                 .addLead(lead)
                 .then(lead => {
-                  lead.show = false
                   lead.date = this.formatDateForAPI(lead.date)
-                  lead.visible = true //ask what this is doing...??
                   this.leads.unshift(lead)
-                  this.close()
                   this.storeAppt()
+                  this.close()
                 })
                 .catch(e => {
                   console.log(e)
@@ -119,7 +117,7 @@ const app = new Vue({
 
         allowedHours(hour) {
 
-          const availableHours = [0,1,2,3,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+          const availableHours = [0,1,2,3,6,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24]
           const unavailableTimes = this.selectedAppts[this.date]
           for (const index in unavailableTimes) {
             const { startTime, endTime } = unavailableTimes[index]
@@ -133,6 +131,7 @@ const app = new Vue({
           return availableHours.includes(hour)
         },
         //
+
         // allowedMinutes: v => !(v % 15),
 
         allowedMinutes(v) {
@@ -157,11 +156,11 @@ const app = new Vue({
         },
 
         setEditingId(id) {
-            this._id = id
+            this.editingId = id
             this.formDialog = true
             const indexOfLead = this.leads.findIndex(lead => lead._id === id)
             this.name = this.leads[indexOfLead].name
-            this.date = this.leads[indexOfLead].date
+            this.date = this.formatDateForAPI(this.leads[indexOfLead].date)
             this.startTime = this.leads[indexOfLead].startTime
             this.endTime = this.leads[indexOfLead].endTime
             this.phone = this.leads[indexOfLead].phone
@@ -172,9 +171,8 @@ const app = new Vue({
         },
 
         updateLead(id) {
-            const indexOfLead = this.leads.findIndex(lead => lead._id === this._id)
+            const indexOfLead = this.leads.findIndex(lead => lead._id === id)
             const lead = this.leads[indexOfLead]
-            lead._id = this._id
             lead.name = this.name
             lead.date = this.date
             lead.startTime = this.startTime
@@ -199,9 +197,13 @@ const app = new Vue({
 
         saveLead() {
           const validForm = this.isValid()
-          if (validForm && this._id) {
-            this.updateLead()
-          } else if (validForm) {
+          if (validForm && this.editingId) {
+            console.log("Updating Lead")
+            this.updateLead(this.editingId)
+            this.startTime = null
+            this.endTime = null
+          } else if (validForm && !this.editingId) {
+            console.log("Adding Lead")
             this.addLead()
           }
         },
@@ -230,6 +232,7 @@ const app = new Vue({
         close() {
           this.clear()
           this.formDialog = false
+          this.editingId = null
         },
 
         validName() {
@@ -273,17 +276,42 @@ const app = new Vue({
         },
 
         showFilteredDates() {
-          if (this.dateFilter === 'None') {
-            return this.leads
-          }
           return this.filteredDateLeads
         },
 
         filterDates() {
           this.filteredDateLeads = []
+          if (this.dateFilter === 'None') {
+            for (const leadIndex in this.leads) {
+              this.filteredDateLeads.push(this.leads[leadIndex])
+            }
+          }
           if (this.dateFilter === 'Today') {
             for (const leadIndex in this.leads) {
-              if (this.leads[leadIndex].date === this.formatDateForAPI()) {
+              const lead = this.leads[leadIndex].date
+              if (this.formatDateForAPI(lead) === this.formatDateForAPI()) {
+                this.filteredDateLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.dateFilter === 'This Week') {
+            for (const leadIndex in this.leads) {
+              if (moment(this.leads[leadIndex].date).isBetween(
+                this.formatDateForAPI(),
+                moment().add(7,'d')
+                // this.formatDateForAPI().add(7, 'd')
+              )) {
+                this.filteredDateLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.dateFilter === 'This Month') {
+            for (const leadIndex in this.leads) {
+              if (moment(this.leads[leadIndex].date).isBetween(
+                this.formatDateForAPI(),
+                moment().add(30,'d')
+                // this.formatDateForAPI().add(7, 'd')
+              )) {
                 this.filteredDateLeads.push(this.leads[leadIndex])
               }
             }

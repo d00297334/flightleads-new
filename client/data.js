@@ -27,12 +27,10 @@ const data = () => ({
       email: true,
       phone: true
     },
-
-    id: null,
     editingId: null,
     deletingId: null,
     showId: null,
-    visible: null,
+    visible: [],
     selectedAppts: {
       '2018-07-18':[{startTime: "10:30", endTime: "11:30"}]
     },
