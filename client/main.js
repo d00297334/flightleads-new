@@ -275,7 +275,7 @@ const app = new Vue({
             this.valid.phone = true
         },
 
-        showFilteredDates() {
+        showFilteredLeads() {
           return this.filteredDateLeads
         },
 
@@ -283,7 +283,9 @@ const app = new Vue({
           this.filteredDateLeads = []
           if (this.dateFilter === 'None') {
             for (const leadIndex in this.leads) {
-              this.filteredDateLeads.push(this.leads[leadIndex])
+              if (this.leads[leadIndex].date >= this.formatDateForAPI()) {
+                this.filteredDateLeads.push(this.leads[leadIndex])
+              }
             }
           }
           if (this.dateFilter === 'Today') {
@@ -312,6 +314,13 @@ const app = new Vue({
                 moment().add(30,'d')
                 // this.formatDateForAPI().add(7, 'd')
               )) {
+                this.filteredDateLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.dateFilter === 'Past') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].date < this.formatDateForAPI()) {
                 this.filteredDateLeads.push(this.leads[leadIndex])
               }
             }

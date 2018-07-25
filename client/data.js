@@ -45,7 +45,8 @@ const data = () => ({
       {text:'None', filter:'none'},
       {text:'Today', filter:'today'},
       {text:'This Week', filter:'thisWeek'},
-      {text:'This Month', filter:'thisMonth'}
+      {text:'This Month', filter:'thisMonth'},
+      {text:'Past', filter:'past'}
     ],
     dateFilter: 'None',
     typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
