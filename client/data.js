@@ -39,7 +39,6 @@ const data = () => ({
 
     dateItems: ['Today', 'This Week', 'This Month'],
     typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
-    statusItems: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
 
     dateFilters: [
       {text:'None', filter:'none'},
@@ -51,12 +50,9 @@ const data = () => ({
     dateFilter: 'None',
     typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     typeFilter: 'None',
-    statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
-    statusFilter: 'None',
 
     filteredDateLeads: [],
     filteredTypeLeads: [],
-    filteredStatuLeads: [],
 
 })
 

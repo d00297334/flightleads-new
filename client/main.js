@@ -276,7 +276,76 @@ const app = new Vue({
         },
 
         showFilteredLeads() {
-          return this.filteredDateLeads
+          return this.visible
+        },
+
+        filter() {
+          this.visible = []
+          const dates = this.filterDates()
+          const filteredTypes = this.filterType()
+          for (const index in filteredTypes) {
+            if (dates.includes(filteredTypes[index])) {
+              this.visible.push(filteredTypes[index])
+            }
+          }
+          return this.visible
+        },
+
+        filterType() {
+          this.filteredTypeLeads = []
+          if (this.typeFilter === 'None') {
+            this.filteredTypeLeads = this.leads.slice()
+          }
+          if (this.typeFilter === 'Videography') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Videography') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.typeFilter === 'Photography') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Photography') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.typeFilter === 'Land/Site Survey') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Land/Site Survey') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.typeFilter === 'Real Estate') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Real Estate') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.typeFilter === 'Outdoor/Extreme Sports - Event') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Outdoor/Extreme Sports - Event') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.typeFilter === 'Outdoor/Extreme Sports - Personal') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Outdoor/Extreme Sports - Personal') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          if (this.typeFilter === 'Other') {
+            for (const leadIndex in this.leads) {
+              if (this.leads[leadIndex].type === 'Other') {
+                this.filteredTypeLeads.push(this.leads[leadIndex])
+              }
+            }
+          }
+          return this.filteredTypeLeads
         },
 
         filterDates() {
@@ -325,6 +394,7 @@ const app = new Vue({
               }
             }
           }
+          return this.filteredDateLeads
         },
 
         toggleShow(id) {
