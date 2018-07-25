@@ -55,26 +55,18 @@
                                   v-model="typeFilter"
                                 ></v-select>
                               </v-flex>
-
-                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
-                                <v-select
-                                style='width:130px'
-                                  :items="statusFilters"
-                                  label="Status"
-                                  v-model="statusFilter"
-                                ></v-select>
-                              </v-flex>
+                              
                               <v-flex style="margin:'10px'" xs12 sm3 d-flex>
                                 <v-btn
                                   style='width:130px'
-                                  @click='filterDates()'
+                                  @click='filter()'
                                 >Apply Filters</v-btn>
                               </v-flex>
                           </v-toolbar-items>
                     </v-toolbar>
 
                     <v-layout row wrap>
-                            <v-flex xs12 md4 sm6 v-for='lead in showFilteredDates()' :key='lead._id'>
+                            <v-flex xs12 md4 sm6 v-for='lead in showFilteredLeads()' :key='lead._id'>
                               <v-card style='margin:10px;' >
 
                                 <v-card-title primary-title>
@@ -245,8 +237,8 @@
                               format='24hr'
                               v-model="startTime"
                               @input="$refs.startTimeMenu.save(startTime)"
-                              :allowed-minutes="allowedMinutes"
                               :allowed-hours="allowedHours"
+                              :allowed-minutes="allowedMinutes"
                               required
                             >
                             </v-time-picker>
@@ -277,8 +269,8 @@
                               format='24hr'
                               v-model="endTime"
                               @input="$refs.endTimeMenu.save(endTime)"
-                              :allowed-minutes="allowedMinutes"
                               :allowed-hours="allowedHours"
+                              :allowed-minutes="allowedMinutes"
                               required
                             >
                             </v-time-picker>

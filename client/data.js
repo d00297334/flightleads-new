@@ -30,7 +30,7 @@ const data = () => ({
     editingId: null,
     deletingId: null,
     showId: null,
-    visible: null,
+    visible: [],
     selectedAppts: {
       '2018-07-18':[{startTime: "10:30", endTime: "11:30"}]
     },
@@ -39,23 +39,20 @@ const data = () => ({
 
     dateItems: ['Today', 'This Week', 'This Month'],
     typeItems: ['Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
-    statusItems: ['NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
 
     dateFilters: [
       {text:'None', filter:'none'},
       {text:'Today', filter:'today'},
       {text:'This Week', filter:'thisWeek'},
-      {text:'This Month', filter:'thisMonth'}
+      {text:'This Month', filter:'thisMonth'},
+      {text:'Past', filter:'past'}
     ],
     dateFilter: 'None',
     typeFilters: ['None', 'Videography', 'Photography', 'Land/Site Survey', 'Real Estate', 'Outdoor/Extreme Sports - Event', 'Outdoor/Extreme Sports - Personal', 'Other'],
     typeFilter: 'None',
-    statusFilters: ['None', 'NEW', 'Flight Scheduled', 'Flight Completed', 'Flight Canceled', 'Dead Lead'],
-    statusFilter: 'None',
 
     filteredDateLeads: [],
     filteredTypeLeads: [],
-    filteredStatuLeads: [],
 
 })
 

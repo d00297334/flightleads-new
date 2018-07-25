@@ -3,10 +3,10 @@ const getLeads = () =>
     .then(res => res.json())
 
 
-const addLead = expense =>
+const addLead = lead =>
   fetch('/leads', {
     method: 'POST',
-    body: JSON.stringify(expense),
+    body: JSON.stringify(lead),
     headers: {
       'Content-Type': 'application/json'
     }
