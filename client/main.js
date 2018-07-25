@@ -18,7 +18,7 @@ const app = new Vue({
         },
       name(val) {
         if (val !== '')
-          this.valid.amount = this.validName()
+          this.valid.name = this.validName()
           },
       email(val) {
         if (val !== '')
@@ -263,13 +263,13 @@ const app = new Vue({
         clear() {
             this.name = ''
             this.address = ''
-            this.phone = null
+            this.phone = ''
             this.date = null
             this.notes = ''
             this.startTime = null
             this.endTime = null
             this.type = ''
-            this.email = null
+            this.email = ''
             this.valid.name = true
             this.valid.email = true
             this.valid.phone = true

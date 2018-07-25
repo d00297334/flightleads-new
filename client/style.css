@@ -6,6 +6,12 @@
   min-height: 1000px;
 }
 
+
+
+.v-alert {
+  height: 20px;
+}
+
 .v-input__slot {
   margin:0px;
 }
@@ -37,4 +43,4 @@
   }
 .v-card {
   filter: drop-shadow(0 0 0.25rem black);
-} 
+}

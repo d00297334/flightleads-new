@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const leadController = require('../controllers/leads')
 
-
 // COLLECTION PATHS
 
 // a get to `/leads`

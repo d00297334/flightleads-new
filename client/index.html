@@ -12,7 +12,7 @@
             <v-app dark v-cloak>
 
               <v-parallax
-              src="drone3.jpg"
+              src="drone4.jpg"
               height="100%"
               jumbotron
               >
@@ -176,7 +176,10 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field v-model='name' label="Full Name"  :class="{'errror-textbox': !valid.name}" ref="nameRef" type="text" ></v-text-field>
+                        <v-text-field v-model='name' label="Full Name"  :class="{'error-textbox': !valid.name}" ref="nameRef" type="text" required></v-text-field>
+                        <v-alert :value="!valid.name" type="error" outline>
+                          Enter valid name
+                        </v-alert>
                       </v-flex>
                         <v-flex xs12 sm6>
                             <v-menu
@@ -275,16 +278,26 @@
                       </v-flex>
 
                       <v-flex xs12>
-
-                        <v-text-field label="Email" v-model="email" :class="{'error-textbox': !valid.email}"></v-text-field>
+                                    <!--  v-model='name' label="Full Name"  :class="{'error-textbox': !valid.name}" ref="nameRef" type="text" required -->
+                        <v-text-field label="Email" v-model="email" :class="{'error-textbox': !valid.email}" type="text" ref="emailRef"required></v-text-field>
+                        <v-alert :value="!valid.email" type="error" outline>
+                          Enter valid email
+                        </v-alert>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :class="{'error-textbox': !valid.phoneNumber}"></v-text-field>
+                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :class="{'error-textbox': !valid.phone}"></v-text-field>
+                        <v-alert :value="!valid.phone" type="error" outline>
+                          Enter valid phone number
+                        </v-alert>
 
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field label="Address" type="address" v-model="address"></v-text-field>
                       </v-flex>
+
+
+
+
 
                       <v-flex xs12 sm6>
                         <v-autocomplete
@@ -317,16 +330,6 @@
               v-model="errorDialog"
               width="500"
             >
-
-            <v-alert :value="!valid.name" type="error">
-              Enter valid name
-            </v-alert>
-            <v-alert :value="!valid.email" type="error">
-              Enter valid email
-            </v-alert>
-            <v-alert :value="!valid.phoneNumber" type="error">
-              Enter valid phone number
-            </v-alert>
 
               <v-card>
                 <v-card-title
