@@ -61,7 +61,6 @@ const app = new Vue({
                 .then(lead => {
                   lead.show = false
                   lead.date = this.formatDateForAPI(lead.date)
-                  lead.visible = true //ask what this is doing...??
                   this.leads.unshift(lead)
                   this.close()
                   this.storeAppt()
@@ -308,7 +307,7 @@ const app = new Vue({
           this.emailDialog = true
           this.to = this.leads[indexOfLead].email
           this.subject = `Flight Leads Confirmation`
-          this.text = `${this.leads[indexOfLead].name.toUpperCase()},
+          this.text = `${this.leads[indexOfLead].name},
 you have a flight leads appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.`
         }
     }
