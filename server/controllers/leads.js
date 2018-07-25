@@ -58,7 +58,7 @@ module.exports = {
         lead.phone = req.body.phone
         lead.email = req.body.email
         lead.type = req.body.type
-        lead.notes = req.body.notes 
+        lead.notes = req.body.notes
         return lead.save()
       })
       .then(lead => res.json(lead))

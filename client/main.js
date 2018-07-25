@@ -1,7 +1,14 @@
 import data from './data.js'
-
+import api from './helpers/api.js'
 
 const app = new Vue({
+    created() {
+      api.getLeads()
+        .then(leads => {
+          this.leads = leads.reverse()
+        })
+        .catch(e => console.log(e))
+      },
     el: '#app',
     data,
     watch: {
@@ -24,19 +31,18 @@ const app = new Vue({
       },
     computed: {
         changeFormMenu() {
-			return this.id === null ? 'New Lead' : 'Update Lead'
+			return this._id === null ? 'New Lead' : 'Update Lead'
         },
         changeFormSubmit() {
-            return this.id === null ? 'Create Lead' : 'Save Lead'
+            return this._id === null ? 'Create Lead' : 'Save Lead'
         }
     },
 
     methods: {
         addLead() {
             const lead = {
-                show: false,
                 name: this.name,
-                date: this.date,
+                date: this.formatDateForAPI(this.date),
                 address: this.address,
                 phone: this.phone,
                 startTime: this.startTime,
@@ -44,22 +50,27 @@ const app = new Vue({
                 notes: this.notes,
                 type: this.type,
                 email: this.email,
-                id: Math.random(),
-                visible: true
             }
             const timeValid = this.isTimeValid()
             const isAvailable = this.isTimeAvailable()
-            if (timeValid) {
-              if (isAvailable) {
-                this.storeAppt()
-                this.leads.unshift(lead)
-                this.close()
-                this.clear()
-              } else {
-                this.errorDialog = true
-              }
-            } else {
+            if (!timeValid) {
               this.invalidTimeDialog = true
+            } else if (isAvailable) {
+              api
+                .addLead(lead)
+                .then(lead => {
+                  lead.show = false
+                  lead.date = this.formatDateForAPI(lead.date)
+                  this.leads.unshift(lead)
+                  this.close()
+                  this.storeAppt()
+                })
+                .catch(e => {
+                  console.log(e)
+                  this.errorDialog = true
+                })
+            } else {
+              this.errorDialog = true
             }
         },
 
@@ -84,13 +95,13 @@ const app = new Vue({
             const apptEndTime = unavailableTimes[index].endTime
 
             if (
-              moment(this.startTime, 'HH:mm').isBetween(
-                moment(apptStartTime, 'HH:mm'),
-                moment(apptEndTime, 'HH:mm')
+              this.getMomentTime(this.startTime).isBetween(
+                this.getMomentTime(apptStartTime),
+                this.getMomentTime(apptEndTime)
               ) ||
-              moment(this.endTime, 'HH:mm').isBetween(
-                moment(apptStartTime, 'HH:mm'),
-                moment(apptEndTime, 'HH:mm')
+              this.getMomentTime(this.endTime).isBetween(
+                this.getMomentTime(apptStartTime),
+                this.getMomentTime(apptEndTime)
               )
             ) {
               return false
@@ -100,7 +111,7 @@ const app = new Vue({
         },
 
         isTimeValid() {
-          if (moment(this.endTime, 'HH:mm').isBefore(moment(this.startTime, 'HH:mm'))) {
+          if (this.getMomentTime(this.endTime).isBefore(this.getMomentTime(this.startTime))) {
           return false
         } else return true
         },
@@ -128,14 +139,26 @@ const app = new Vue({
           return !(v %15)
         },
 
+        getMomentTime(time) {
+          return moment(time, 'HH:mm')
+        },
+
         formatDate(date) {
             return moment(date).format('dddd, MMMM Do, YYYY')
         },
 
+        formatDateForAPI(date) {
+            return moment(date).format('YYYY-MM-DD')
+        },
+
+        restrictOldDates() {
+          return this.formatDateForAPI()
+        },
+
         setEditingId(id) {
-            this.id = id
+            this._id = id
             this.formDialog = true
-            const indexOfLead = this.leads.findIndex(lead => lead.id === id)
+            const indexOfLead = this.leads.findIndex(lead => lead._id === id)
             this.name = this.leads[indexOfLead].name
             this.date = this.leads[indexOfLead].date
             this.startTime = this.leads[indexOfLead].startTime
@@ -148,39 +171,37 @@ const app = new Vue({
         },
 
         updateLead(id) {
-            const indexOfLead = this.leads.findIndex(lead => lead.id === id)
-            this.leads[indexOfLead].id = this.id
-            this.leads[indexOfLead].name = this.name
-            this.leads[indexOfLead].date = this.date
-            this.leads[indexOfLead].startTime = this.startTime
-            this.leads[indexOfLead].endTime = this.endTime
-            this.leads[indexOfLead].phone = this.phone
-            this.leads[indexOfLead].address = this.address
-            this.leads[indexOfLead].email = this.email
-            this.leads[indexOfLead].type = this.type
-            this.leads[indexOfLead].notes = this.notes
-            this.leads[indexOfLead].show = false
-            this.close()
+            const indexOfLead = this.leads.findIndex(lead => lead._id === this._id)
+            const lead = this.leads[indexOfLead]
+            lead._id = this._id
+            lead.name = this.name
+            lead.date = this.date
+            lead.startTime = this.startTime
+            lead.endTime = this.endTime
+            lead.phone = this.phone
+            lead.address = this.address
+            lead.email = this.email
+            lead.type = this.type
+            lead.notes = this.notes
 
-        },
-
-        restrictOldDates() {
-          let today = moment(new Date()).format('YYYY-MM-DD')
-          return today
-          
+            api.updateLead(lead)
+              .then(lead => {
+                lead.show = false
+                this.close()
+                //don't forget to store appointment for validation
+              })
+              .catch(e => {
+                console.log(e)
+                //pull up a server error message right here... need to create
+              })
         },
 
         saveLead() {
-          console.log('saving lead')
-            if (this.isValid()) {
-              if (this.id !== null) {
-                console.log('updating')
-                this.updateLead(this.id)
-            } else {
-                console.log('adding')
-                this.addLead()
-            }
-            this.$refs.nameRef.focus()
+          const validForm = this.isValid()
+          if (validForm && this._id) {
+            this.updateLead()
+          } else if (validForm) {
+            this.addLead()
           }
         },
 
@@ -191,7 +212,15 @@ const app = new Vue({
 
         deleteLead(lead) {
           // const indexOfLead = this.leads.findIndex(lead => lead.id === this.deletingId)
-          this.leads.splice(this.leads.indexOf(lead), 1)
+          api
+            .deleteLead(lead._id)
+            .then(() => {
+              this.leads.splice(this.leads.indexOf(lead),1)
+            })
+            .catch(e => {
+              console.log(e)
+              this.errorDialog = true //change this to the right dialog later
+            })
           // this.leads = this.leads.filter(lead => lead.id !== this.deletingId)
           // this.deleteDialog = false
           // this.deletingId = null
@@ -237,7 +266,6 @@ const app = new Vue({
             this.endTime = null
             this.type = ''
             this.email = null
-            this.id = null
             this.valid.name = true
             this.valid.email = true
             this.valid.phone = true
@@ -252,29 +280,35 @@ const app = new Vue({
 
         filterDates() {
           this.filteredDateLeads = []
-          const today = moment(new Date()).format('dddd, MMMM-Do-YYYY')
           if (this.dateFilter === 'Today') {
             for (const leadIndex in this.leads) {
-              if (moment(this.leads[leadIndex].date).format('dddd, MMMM-Do-YYYY') === today) {
+              if (this.leads[leadIndex].date === this.formatDateForAPI()) {
                 this.filteredDateLeads.push(this.leads[leadIndex])
               }
             }
           }
         },
 
-        toggleShow(lead) {
-          lead.show = !lead.show
+        toggleShow(id) {
+          if (id === this.showId) {
+            this.showId = null
+          } else {
+            this.showId = id
+          }
+        },
 
+        shouldShowLead(id) {
+          return (this.showId === id)
         },
 
         setMailInfo(id) {
-          const indexOfLead = this.leads.findIndex(lead => lead.id === id)
+          const indexOfLead = this.leads.findIndex(lead => lead._id === id)
 
           this.emailDialog = true
           this.to = this.leads[indexOfLead].email
           this.subject = `Flight Leads Confirmation`
-          this.text = `${this.leads[indexOfLead].name.toUpperCase()},
-you have a flight leads appointment on ${moment(this.leads[indexOfLead].date).format('MMMM Do, YYYY')} at ${this.leads[indexOfLead].startTime}.`
+          this.text = `${this.leads[indexOfLead].name},
+you have a flight leads appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.`
         }
     }
 

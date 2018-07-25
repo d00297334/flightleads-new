@@ -9,7 +9,6 @@ const leadSchema = mongoose.Schema({
   date: {
     type: Date,
     required: true,
-    default: moment().format('dddd, MMMM Do, YYYY'),
   },
   startTime: {
     type: String,

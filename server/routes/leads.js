@@ -5,20 +5,20 @@ const leadController = require('../controllers/leads')
 
 // COLLECTION PATHS
 
-// a get to `/expenses`
-router.get('/', leadController.listLeads)
-// a post to '/expenses'
-router.post('/', leadController.createLead)
+// a get to `/leads`
+router.get('/leads', leadController.listLeads)
+// a post to '/leads'
+router.post('/leads', leadController.createLead)
 
 
 // ELEMENT PATHS
 
-// a put to '/expenses/id'
-router.put('/:id', leadController.updateLead)
-// a delete to '/expense/id'
-router.delete('/:id', leadController.deleteLead)
-//a get to 'expenses/id'
-router.get('/:id', leadController.getLead)
+// a put to '/leads/id'
+router.put('/leads/:id', leadController.updateLead)
+// a delete to '/leads/id'
+router.delete('/leads/:id', leadController.deleteLead)
+//a get to 'leads/id'
+router.get('/leads/:id', leadController.getLead)
 
 // export default router
 

@@ -74,12 +74,12 @@
                     </v-toolbar>
 
                     <v-layout row wrap>
-                            <v-flex xs12 md4 sm6 v-for='lead in showFilteredDates()' :key='lead.id'>
+                            <v-flex xs12 md4 sm6 v-for='lead in showFilteredDates()' :key='lead._id'>
                               <v-card style='margin:10px;' >
 
                                 <v-card-title primary-title>
                                   <div>
-                                    
+
                                     <h2 class="headline mb-0">{{ lead.name }}</h2>
                                     <h3>{{ formatDate(lead.date) }}<br>{{ lead.startTime }} - {{ lead.endTime }}</h3>
                                     <h4 class='font-weight-light'>{{ lead.address }}</h4>
@@ -87,14 +87,14 @@
 
 
                                     <v-flex>
-                                      <v-icon @click="toggleShow(lead)" style='font-size:2rem;'>{{ lead.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                      <v-icon @click="toggleShow(lead._id)" style='font-size:2rem;'>{{ shouldShowLead(lead._id) ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                                     </v-flex>
 
                                   </div>
                                 </v-card-title>
 
                                 <v-slide-y-transition>
-                                    <v-card-text v-show="lead.show">
+                                    <v-card-text v-show="shouldShowLead(lead._id)">
 
 
                                         <h3>Contact Info:</h3>
@@ -108,10 +108,10 @@
 
 
 
-                                        
-                                          <v-btn flat fab color="blue" @click='setEditingId(lead.id)'>edit</v-btn>
+
+                                          <v-btn flat fab color="blue" @click='setEditingId(lead._id)'>edit</v-btn>
                                           <v-btn flat fab color="blue" @click='deleteLead(lead)'>delete</v-btn>
-                                          <v-btn flat fab  color='blue darken-1' @click='setMailInfo(lead.id)'><v-icon style='padding-top:30%'>email</v-icon></v-btn>
+                                          <v-btn flat fab  color='blue darken-1' @click='setMailInfo(lead._id)'><v-icon style='padding-top:30%'>email</v-icon></v-btn>
             <!-- Delete Dialog Box -->
                                             <div class="text-xs-center">
                                               <v-dialog
@@ -204,7 +204,7 @@
                               <v-text-field
 
                                 slot="activator"
-                                v-model="date"
+                                v-model="formatDateForAPI(date)"
                                 label="Date of Flight"
                                 prepend-icon="event"
                                 readonly
@@ -312,7 +312,7 @@
                 <v-card-actions>
                   <v-btn color="blue darken-1" flat @click="close()">Close</v-btn>
                   <v-btn color="blue darken-1" flat @click="saveLead()">{{ changeFormSubmit }}</v-btn>
-                  
+
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -385,7 +385,7 @@
                         </v-layout>
                       </v-container>
                     </v-card-text>
-                    
+
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn color="blue darken-1" flat @click="emailDialog = false">Close</v-btn>
@@ -445,6 +445,6 @@
         <script src='vue.js'></script>
         <script src='vuetify.js'></script>
         <script src='main.js' type="module"></script>
-        
+
     </body>
 </html>
