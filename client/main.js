@@ -345,7 +345,7 @@ const app = new Vue({
           this.emailDialog = true
           this.to = this.leads[indexOfLead].email
           this.subject = `Flight Leads Confirmation`
-          this.text = `${this.leads[indexOfLead].name.toUpperCase()},
+          this.text = `${this.leads[indexOfLead].name},
 you have a flight leads appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.`
         }
     }
