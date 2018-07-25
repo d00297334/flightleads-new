@@ -231,6 +231,7 @@ const app = new Vue({
 
         close() {
           this.clear()
+          this.filter()
           this.formDialog = false
           this.editingId = null
         },
@@ -414,8 +415,8 @@ const app = new Vue({
 
           this.emailDialog = true
           this.to = this.leads[indexOfLead].email
-          this.subject = `Flight Leads Confirmation`
-          this.text = `${this.leads[indexOfLead].name},
+          this.subject = `Flight Appointment Confirmation`
+          this.text = `${this.leads[indexOfLead].name.split(' ').slice(0, -1).join(' ')},
 you have a flight leads appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.`
         }
     }
