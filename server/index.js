@@ -12,6 +12,7 @@ const Lead = require('./models/leads')
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
 
+
 app.post('/send-email', function (req, res) {
     let transporter = nodeMailer.createTransport({
         host: 'box575.bluehost.com',
