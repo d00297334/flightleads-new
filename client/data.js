@@ -27,8 +27,6 @@ const data = () => ({
       email: true,
       phone: true
     },
-
-    id: null,
     editingId: null,
     deletingId: null,
     showId: null,

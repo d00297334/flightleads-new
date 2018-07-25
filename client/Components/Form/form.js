@@ -1,22 +1,27 @@
-import data from './data.js'
-import template from './template.js'
+//import data from './data.js'
+//import template from './template.js'
+
 
 const formDialog = Vue.component('form', {
-	data,
-	template,
-
-	computed {
+	data: {
+		date: null,
+		menu: false,
+		modal: false,
+		menu2: false,
+		dialog: false
+	},
+	template: `
+		<h1>Hello World</h1>
+	`,
+	computed: {
 
 	},
-
-	methods {
+	methods: {
 		showForm() {
-			this.dialog = true,
+			this.dialog = true
 		}
 	},
+ })
 
 
- }
-
-
-export default formDialog
+//export default formDialog
