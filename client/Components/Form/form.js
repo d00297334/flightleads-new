@@ -24,4 +24,4 @@ const formDialog = Vue.component('form', {
  })
 
 
-//export default formDialog
+export default formDialog
