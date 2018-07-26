@@ -434,16 +434,6 @@ We look forward to working with you.
 ~The Flight Leads Crew
 notifications@FlightLeadsCRM.com
 (801)989-3659`
-          // this.text =
-          //        `<p>Hello %s,</p>
-          //           <p>For the past two years we have been developing a custom bag for VEX teams to carry their robots and gear to competitions. Today we are excited to announce that the solution you need is now available.</p>
-          //           <p>Robox Bags is a company that realized many teams have been struggling to transport robots to competitions. We created this solution for you to better protect your robots and simplify transportation.</p>
-          //           <p>Take a look at <a href="http://roboxbags.com/">www.roboxbags.com</a> and find out why every team we talk to is so excited to get one.</p>
-          //           <p>The first 20 buyers this week get a special price, but it won't last long. <a href="http://roboxbags.com/product/robox-rb1/">Get yours now</a>, or let me know if you have any questions at customerservice@roboxbags.com</p>
-          //           <p>Sincerely,</p>
-          //           <b>Carson Young</b><br><em>RoboxBags Co-Founder</em><br>(208) 308 1733</br><br><img src="cid:image1">`
-
-
         }
     }
 
