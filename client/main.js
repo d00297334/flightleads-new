@@ -6,6 +6,7 @@ const app = new Vue({
       api.getLeads()
         .then(leads => {
           this.leads = leads.reverse()
+          this.filter()
         })
         .catch(e => console.log(e))
       },
@@ -144,11 +145,11 @@ const app = new Vue({
         },
 
         formatDate(date) {
-            return moment(date).format('dddd, MMMM Do, YYYY')
+            return moment.utc(date).format('dddd, MMMM Do, YYYY')
         },
 
         formatDateForAPI(date) {
-            return moment(date).format('YYYY-MM-DD')
+            return moment.utc(date).format('YYYY-MM-DD')
         },
 
         restrictOldDates() {
@@ -209,17 +210,23 @@ const app = new Vue({
         },
 
         setDeletingId(id) {
-          this.deleteDialog = true
           this.deletingId = id
+          this.deleteDialog = true
+          // const indexOfLead = this.leads.findIndex(lead => lead._id === id)
+
         },
 
-        deleteLead(lead) {
-          // const indexOfLead = this.leads.findIndex(lead => lead.id === this.deletingId)
+        deleteLead() {
+          const indexOfLead = this.leads.findIndex(lead => lead._id === this.deletingId)
+          const lead = this.leads[indexOfLead]
           api
             .deleteLead(lead._id)
-            .then(() => {
-              this.leads.splice(this.leads.indexOf(lead),1)
-            })
+              .then(() => {
+                this.leads.splice(this.leads.indexOf(lead),1)
+                this.deleteDialog = false
+                this.deletingId = null
+                this.filter()
+              })
             .catch(e => {
               console.log(e)
               this.errorDialog = true //change this to the right dialog later
@@ -416,8 +423,27 @@ const app = new Vue({
           this.emailDialog = true
           this.to = this.leads[indexOfLead].email
           this.subject = `Flight Appointment Confirmation`
-          this.text = `${this.leads[indexOfLead].name.split(' ').slice(0, -1).join(' ')},
-you have a flight leads appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.`
+          this.text = `Hello ${this.leads[indexOfLead].name.split(' ').slice(0, -1).join(' ')},
+
+This is just a friendly reminder that you have an upcoming drone flight appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.
+The type of drone flight requested is ${this.leads[indexOfLead].type}.
+
+Please let us know if any details have changed, or if this time no longer works for, you by replying to this email or calling our number at the bottom.
+We look forward to working with you.
+
+~The Flight Leads Crew
+notifications@FlightLeadsCRM.com
+(801)989-3659`
+          // this.text =
+          //        `<p>Hello %s,</p>
+          //           <p>For the past two years we have been developing a custom bag for VEX teams to carry their robots and gear to competitions. Today we are excited to announce that the solution you need is now available.</p>
+          //           <p>Robox Bags is a company that realized many teams have been struggling to transport robots to competitions. We created this solution for you to better protect your robots and simplify transportation.</p>
+          //           <p>Take a look at <a href="http://roboxbags.com/">www.roboxbags.com</a> and find out why every team we talk to is so excited to get one.</p>
+          //           <p>The first 20 buyers this week get a special price, but it won't last long. <a href="http://roboxbags.com/product/robox-rb1/">Get yours now</a>, or let me know if you have any questions at customerservice@roboxbags.com</p>
+          //           <p>Sincerely,</p>
+          //           <b>Carson Young</b><br><em>RoboxBags Co-Founder</em><br>(208) 308 1733</br><br><img src="cid:image1">`
+
+
         }
     }
 
