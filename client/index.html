@@ -25,7 +25,7 @@
                 <div style='height:100px;'></div>
 
                 <v-container style='max-height:50%;'>
-                  <v-toolbar>
+                  <v-toolbar style='min-height:60px; padding: 1% 0'>
                         <v-toolbar-title>Upcoming Flights!</v-toolbar-title>
 
                         <v-spacer></v-spacer>
@@ -34,20 +34,20 @@
 
                           <v-toolbar-items style="align-items: space-around">
                               <v-spacer></v-spacer>
-                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+                              <v-flex style="margin:'10px'" xs3 sm3 d-flex>
 
 
 
                                 <v-select
 
-                                style='width:130px'
+                                style='width:230px'
                                   :items="dateFilters"
                                   label="Date"
                                   v-model="dateFilter"
                                 ></v-select>
                               </v-flex>
 
-                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+                              <v-flex style="margin:'10px'" xs3 sm3 d-flex>
                                <v-select
                                 style='width:130px'
                                   :items="typeFilters"
@@ -55,8 +55,8 @@
                                   v-model="typeFilter"
                                 ></v-select>
                               </v-flex>
-                              
-                              <v-flex style="margin:'10px'" xs12 sm3 d-flex>
+
+                              <v-flex style="margin:'10px'" xs5 sm3 d-flex>
                                 <v-btn
                                   style='width:130px'
                                   @click='filter()'
@@ -176,7 +176,7 @@
                     <v-layout wrap>
                       <v-flex xs12>
 
-                        <v-text-field v-model='name' label="Full Name"  :class="{'error-textbox': !valid.name}" ref="nameRef" type="text" required></v-text-field>
+                        <v-text-field v-model='name' label="*Full Name"  :class="{'error-textbox': !valid.name}" ref="nameRef" type="text" required></v-text-field>
                         <v-alert :value="!valid.name" type="error" outline>
                           Enter valid name
                         </v-alert>
@@ -200,7 +200,7 @@
 
                                 slot="activator"
                                 v-model="formatDateForAPI(date)"
-                                label="Date of Flight"
+                                label="*Date of Flight"
                                 prepend-icon="event"
                                 readonly
                               ></v-text-field>
@@ -228,7 +228,7 @@
 
                               slot="activator"
                               v-model="startTime"
-                              label="Time of Flight"
+                              label="*Time of Flight"
                               prepend-icon="access_time"
                               readonly
                             ></v-text-field>
@@ -260,7 +260,7 @@
                             <v-text-field
                               slot="activator"
                               v-model="endTime"
-                              label="End Time"
+                              label="*End Time"
                               prepend-icon="access_time"
                               readonly
                             ></v-text-field>
@@ -279,20 +279,20 @@
 
                       <v-flex xs12>
                                     <!--  v-model='name' label="Full Name"  :class="{'error-textbox': !valid.name}" ref="nameRef" type="text" required -->
-                        <v-text-field label="Email" v-model="email" :class="{'error-textbox': !valid.email}" type="text" ref="emailRef"required></v-text-field>
+                        <v-text-field label="*Email" v-model="email" :class="{'error-textbox': !valid.email}" type="text" ref="emailRef"required></v-text-field>
                         <v-alert :value="!valid.email" type="error" outline>
                           Enter valid email
                         </v-alert>
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Phone Number" v-model="phone" placeholder="(123) 456-7890" :class="{'error-textbox': !valid.phone}"></v-text-field>
+                        <v-text-field label="*Phone Number" v-model="phone" placeholder="(123) 456-7890" :class="{'error-textbox': !valid.phone}"></v-text-field>
                         <v-alert :value="!valid.phone" type="error" outline>
                           Enter valid phone number
                         </v-alert>
 
                       </v-flex>
                       <v-flex xs12>
-                        <v-text-field label="Address" type="address" v-model="address"></v-text-field>
+                        <v-text-field label="*Address" type="address" v-model="address"></v-text-field>
                       </v-flex>
 
 
@@ -398,7 +398,7 @@
           </div>
 
 
-<!-- Invalid Time Dialog Box -->
+<!--  Time Dialog Box -->
           <div class="text-xs-center">
             <v-dialog
               v-model="invalidTimeDialog"
