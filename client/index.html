@@ -102,7 +102,7 @@
 
 
                                           <v-btn flat fab color="blue" @click='setEditingId(lead._id)'>edit</v-btn>
-                                          <v-btn flat fab color="blue" @click='deleteLead(lead)'>delete</v-btn>
+                                          <v-btn flat fab color="blue" @click='setDeletingId(lead._id)'>delete</v-btn>
                                           <v-btn flat fab  color='blue darken-1' @click='setMailInfo(lead._id)'><v-icon style='padding-top:30%'>email</v-icon></v-btn>
             <!-- Delete Dialog Box -->
                                             <div class="text-xs-center">
@@ -119,7 +119,7 @@
                                                     Are you sure you want to delete this lead?
                                                   </v-card-title>
                                                   <v-card-text>
-                                                    Once deleted you will not be able to access any date from this Lead.
+                                                    Once deleted you will not be able to access any information from this Lead.
                                                     Are you sure you want to continue with this action?
                                                   </v-card-text>
                                                   <v-divider></v-divider>
@@ -197,9 +197,8 @@
 
                             >
                               <v-text-field
-
                                 slot="activator"
-                                v-model="formatDateForAPI(date)"
+                                v-model="date"
                                 label="*Date of Flight"
                                 prepend-icon="event"
                                 readonly
@@ -432,6 +431,20 @@
 
           </v-parallax>
 
+          <v-footer
+           dark
+           height="auto"
+         >
+           <v-card
+             class="flex"
+             flat
+             tile
+           >
+             <v-card-actions class="grey darken-3 justify-center">
+               &copy;2018 — <strong>Flight Leads</strong>
+             </v-card-actions>
+           </v-card>
+         </v-footer>
 
         </v-app>
     </div>

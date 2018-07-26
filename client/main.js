@@ -6,6 +6,7 @@ const app = new Vue({
       api.getLeads()
         .then(leads => {
           this.leads = leads.reverse()
+          this.filter()
         })
         .catch(e => console.log(e))
       },
@@ -144,11 +145,11 @@ const app = new Vue({
         },
 
         formatDate(date) {
-            return moment(date).format('dddd, MMMM Do, YYYY')
+            return moment.utc(date).format('dddd, MMMM Do, YYYY')
         },
 
         formatDateForAPI(date) {
-            return moment(date).format('YYYY-MM-DD')
+            return moment.utc(date).format('YYYY-MM-DD')
         },
 
         restrictOldDates() {
@@ -209,17 +210,23 @@ const app = new Vue({
         },
 
         setDeletingId(id) {
-          this.deleteDialog = true
           this.deletingId = id
+          this.deleteDialog = true
+          // const indexOfLead = this.leads.findIndex(lead => lead._id === id)
+
         },
 
-        deleteLead(lead) {
-          // const indexOfLead = this.leads.findIndex(lead => lead.id === this.deletingId)
+        deleteLead() {
+          const indexOfLead = this.leads.findIndex(lead => lead._id === this.deletingId)
+          const lead = this.leads[indexOfLead]
           api
             .deleteLead(lead._id)
-            .then(() => {
-              this.leads.splice(this.leads.indexOf(lead),1)
-            })
+              .then(() => {
+                this.leads.splice(this.leads.indexOf(lead),1)
+                this.deleteDialog = false
+                this.deletingId = null
+                this.filter()
+              })
             .catch(e => {
               console.log(e)
               this.errorDialog = true //change this to the right dialog later
@@ -231,6 +238,7 @@ const app = new Vue({
 
         close() {
           this.clear()
+          this.filter()
           this.formDialog = false
           this.editingId = null
         },
@@ -414,9 +422,18 @@ const app = new Vue({
 
           this.emailDialog = true
           this.to = this.leads[indexOfLead].email
-          this.subject = `Flight Leads Confirmation`
-          this.text = `${this.leads[indexOfLead].name},
-you have a flight leads appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.`
+          this.subject = `Flight Appointment Confirmation`
+          this.text = `Hello ${this.leads[indexOfLead].name.split(' ').slice(0, -1).join(' ')},
+
+This is just a friendly reminder that you have an upcoming drone flight appointment on ${this.formatDate(this.leads[indexOfLead].date)} at ${this.leads[indexOfLead].startTime}.
+The type of drone flight requested is ${this.leads[indexOfLead].type}.
+
+Please let us know if any details have changed, or if this time no longer works for, you by replying to this email or calling our number at the bottom.
+We look forward to working with you.
+
+~The Flight Leads Crew
+notifications@FlightLeadsCRM.com
+(801)989-3659`
         }
     }
 

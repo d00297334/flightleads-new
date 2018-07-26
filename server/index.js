@@ -137,6 +137,6 @@ mongoose.connect(process.env.DB_URL, options)
   .then(() => {
 
     console.log("Databse Working")
-    app.listen(3000)
+    app.listen(5000)
 
   })
