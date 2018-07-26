@@ -3,7 +3,7 @@
 
 
 const formDialog = Vue.component('form', {
-	data: {
+		data: {
 		date: null,
 		menu: false,
 		modal: false,
@@ -24,4 +24,4 @@ const formDialog = Vue.component('form', {
  })
 
 
-//export default formDialog
+export default formDialog
